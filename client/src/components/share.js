@@ -1,7 +1,7 @@
 import { EmojiEmotions, Label, PermMedia, Room } from "@mui/icons-material";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios"
+import axios from "axios";
 export default function Share(){
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);

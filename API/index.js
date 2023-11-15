@@ -8,34 +8,9 @@ const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const multer = require("multer");
-const path = require('path');
-const Post = require("./models/Post");
+
 dotenv.config();
 
-
-
-
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "/public/images");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({  storage});
-
-// app.post("/api/upload", upload.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("uploaded successfully");
-//   } catch (err) {
-//     console.log("err in uploading", err);
-//     res.status(500).json("Error in uploading");
-//   }
-// });
 
 //middleware
 app.use(express.json());
