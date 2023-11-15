@@ -4,7 +4,7 @@ import { Password } from "@mui/icons-material";
 const INITIAL_STATE = {
   user: {
     _id: "65463c2b2ebd9cdbbe455437",
-    username: "Nauman ur rahman",
+    username: "nauman ur rahman",
     email: "Arman@gmail.com",
 
     profilePicture:"",

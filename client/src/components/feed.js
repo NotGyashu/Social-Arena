@@ -9,14 +9,22 @@ const [posts,setPosts] = useState([]);
 const {user} = useContext(AuthContext)
 useEffect(()=>{
     const fetchPost = async()=>{
-        const res = username ? 
-        await axios.get(`/posts/profile/${username}`) :
-        await axios.get("/posts/timeline/" + user._id) ;
-        
-        setPosts(res.data)
-      console.log(res.data);
-    };
+        try {
+        const res = username
+          ? await axios.get(`posts/profile/${username}`)
+          : await axios.get(`posts/timeline/${user._id}`);
+
+        // Log for debugging purposes
+        console.log(username, user._id);
+        console.log(res.data);
+
+        setPosts(res.data);
+      } catch (error) {
+        // Handle error, e.g., log or show an error message
+        console.error('Error fetching posts:', error);
+      }
     fetchPost();
+}
 },[username,user._id])
 
 

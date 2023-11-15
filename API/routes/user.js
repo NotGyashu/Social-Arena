@@ -41,20 +41,25 @@ router.delete("/:id", async (req,res)=>{
     }
 })
 //get user
-router.get("/", async (req,res)=>{
-    console.log("kjhfk")
-    const userId = req.query.userId;
-    const username = req.query.username;
-    try{
-
-       const user = userId ? await User.findById(userId) :await User.findOne({username:username});
-       const {password,updatedAt, ...other} = user._doc
-       res.status(200).json(other); 
-
-    }catch(err){
-        res.status(500).json(`err in getting user : ${err}`)
+router.get("/", async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
+  console.log(userId);
+  try {
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+    if (user && user._doc) {
+      const { password, updatedAt, ...userWithoutSensitiveInfo } = user._doc;
+      res.status(200).json(userWithoutSensitiveInfo);
+    } else {
+      // Handle the case where user is null or undefined
+      res.status(404).json({ error: "User not found" });
     }
-})
+  } catch (err) {
+    res.status(500).json(`err in getting user : ${err}`);
+  }
+});
 
 //follower user
 router.put("/:id/follow" , async (req,res)=>{
