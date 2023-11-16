@@ -8,11 +8,12 @@ export default function Feed({username}){
 const [posts,setPosts] = useState([]);
 const {user} = useContext(AuthContext)
 useEffect(()=>{
+
     const fetchPost = async()=>{
         try {
         const res = username
-          ? await axios.get(`posts/profile/${username}`)
-          : await axios.get(`posts/timeline/${user._id}`);
+          ? await axios.get(`/posts/profile/${username}`)
+          : await axios.get(`/posts/timeline/${user._id}`);
 
         // Log for debugging purposes
         console.log(username, user._id);
@@ -23,8 +24,9 @@ useEffect(()=>{
         // Handle error, e.g., log or show an error message
         console.error('Error fetching posts:', error);
       }
-    fetchPost();
+  
 }
+  fetchPost();
 },[username,user._id])
 
 
