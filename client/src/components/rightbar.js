@@ -4,32 +4,34 @@ import Friends from "./Allfriends"
 export default function Rightbar({user}){
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
     const HomeRightbar = ()=>{
-return(
-<div class="  py-5 mt-12  shrink-[2] col-span-3  ">
-        {/* BIRTHCONTAINER */}
-        <div class="flex space-x-2">
-            <img src="\Assets\gift.jpg" alt="HAppy Birthday" class="h-16 "></img>
-            <span><b>Ashraf Khan</b> and 3 others have birthday today </span>
-        </div>
+return (
+  <div class="  py-5 mt-12  shrink-[2] col-span-3  ">
+    {/* BIRTHCONTAINER */}
+    <div class="flex space-x-2">
+      <img src={`${PF}add.jpg`} alt="HAppy Birthday" class="h-16 "></img>
+      <span>
+        <b>Ashraf Khan</b> and 3 others have birthday today{" "}
+      </span>
+    </div>
 
-           {/* add  */}
-           <img src="\Assets\add.jpg" alt="Add" class="my-7 w-full  h-64 rounded-md"></img><hr/>
+    {/* add  */}
+    <img
+      src={`${PF}gift.jpg`}
+      alt="Add"
+      class="my-7 w-full  h-64 rounded-md"
+    ></img>
+    <hr />
 
-           {/* online freinds */}
+    {/* online freinds */}
 
-           <h4 class="font-semibold   my-7 text-xl">Online Freinds</h4>
-           <ul>
-          { 
-            users.map((u) => (
-
-                <Online key = {u.id} user = {u}/>
-
-                ))
-          }
-            
-           </ul>
-        </div>
-)
+    <h4 class="font-semibold   my-7 text-xl">Online Freinds</h4>
+    <ul>
+      {users.map((u) => (
+        <Online key={u.id} user={u} />
+      ))}
+    </ul>
+  </div>
+);
     }
 
     const ProfileRightbar = ()=>{
