@@ -1,17 +1,43 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const multer = require("multer");
+const uploadFileToFirestore = require("../config/firebase");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-//create post
-router.post("/", async (req, res) => {
-  const newpost = new Post(req.body);
-  try {
-    const savedPost = await newpost.save();
-    res.status(200).json(savedPost);
-  } catch (err) {
-    res.status(500).json(savedPost);
-  }
+// create post
+router.post("/", upload.single("file"), (req, res) => {
+  console.log("Request Body:", req.body);
+  console.log("Uploaded File:", req.file);
+  uploadFileToFirestore(req.file, (error, imageUrl) => {
+    if (error) {
+      console.error("Error in uploading:", error);
+      return res.status(500).send("Error in uploading: " + error);
+    }
+
+    const newpost = new Post({
+      img: imageUrl,
+      ...req.body,
+    });
+
+    console.log("Creating new post:", newpost); // Add this line for logging
+
+    newpost
+      .save()
+      .then((savedPost) => {
+        console.log("Post saved successfully:", savedPost); // Add this line for logging
+        res.status(200).json(savedPost);
+      })
+      .catch((err) => {
+        console.error("Error saving post to database:", err);
+        res.status(500).json({ error: "Error saving post to database" });
+      });
+  });
 });
+
+
+
 
 //update post
 router.put("/:id", async (req, res) => {
@@ -62,7 +88,6 @@ router.put("/:id/like", async (req, res) => {
 
 //get a post
 router.get("/:id", async (req, res) => {
-
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
@@ -72,21 +97,17 @@ router.get("/:id", async (req, res) => {
 });
 async function getAllObjectsFromMongoDB() {
   try {
-    
     // Find all objects in the database
     const results = await Post.find({});
 
     // Log the objects
     console.log("Before query");
-    
-    console.log("After query", results);
 
+    console.log("After query", results);
   } catch (err) {
     console.error("Error retrieving objects from MongoDB:", err);
   }
-
 }
-
 
 //get all the posts
 router.get("/timeline/:userId", async (req, res) => {

@@ -16,8 +16,8 @@ useEffect(()=>{
           : await axios.get(`/posts/timeline/${user._id}`);
 
         // Log for debugging purposes
-        console.log(username, user._id);
-        console.log(res.data);
+        // console.log(username, user._id);
+        // console.log(res.data);
 
         setPosts(res.data);
       } catch (error) {
