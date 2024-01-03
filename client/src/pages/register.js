@@ -93,7 +93,7 @@ export default function Register() {
           <button class="w-full h-10 flex justify-center items-center  bg-green-500 text-white p-3  rounded-md   " type="submit">
             Register
           </button>
-          <a href={<Login />} class="text-blue-700 hover:text-blue-400 ml-12 ">
+          <a href="./login" class="text-blue-700 hover:text-blue-400 ml-12 ">
             Already have an account?
           </a>
           <hr></hr>

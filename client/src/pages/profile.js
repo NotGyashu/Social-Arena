@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
         const [user,setUser]=useState([]);
+        const [hovered,setHovered] = useState(false)
         const username= useParams().username
-        console.log(username)
+     
     useEffect(()=>{
         const fetchUser = async () => {
             try {
@@ -38,29 +39,42 @@ export default function Profile() {
         fetchUser();
     },[username])
     return (
-        <div >
-            <Topbar />
-            <div class="grid grid-cols-10 ">
+      <div>
+        <Topbar />
+        <div class="grid grid-cols-10 ">
+          <Sidebar />
+          <div class=" col-span-8 overflow-y-scroll custom-scrollbar   ">
+            {/* profiletop */}
+            <div class=" w-full mt-14 flex flex-col items-center justify-center ">
+              <img
+                src={
+                  user.coverPicture
+                    ? user.coverPicture
+                    : "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/ai.png?alt=media&token=aad3eca2-135e-461f-8713-967cf23647d1"
+                }
+                alt="cover pic"
+                class=" h-96 w-[98%] m-3 block "
+              ></img>
 
-                <Sidebar />
-                <div class=" col-span-8 overflow-y-scroll custom-scrollbar   ">
-                    {/* profiletop */}
-                    <div class=" w-full mt-14 flex flex-col items-center justify-center ">
-                        <img src={user.coverPicture? user.coverPicture :`${PF}ai.png`} alt="ssehhe" class=" h-96 w-[98%] m-3 block"></img>
-                     
-                      <img src={user.profilePicture ? PF+user.profilePicture : PF+"th.jpg"} alt="ehhe" class="relative  h-[15vw] w-[15vw] border-2 top-[-6vw] border-white shadow-md rounded-full "></img>
-                        <h1 class="mt-[-6vw] font-bold text-xl">{user.username}</h1>
-                        <h1>{user.desc}</h1>
-                      
-                    </div>
-                    {/* middleprofile */}
-                    <div class=" col-span-8 grid-cols-8 grid relative top-[-7vh]">
-                        <Feed username={username}/>
-                        <Rightbar user={user}/>
-                    </div>
-                </div>
+              <img
+                src={
+                  user.profilePicture
+                    ? user.profilePicture
+                    : "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
+                }
+                alt="profile pic"
+                class="relative  h-[15vw] w-[15vw] border-2 top-[-6vw] border-white shadow-md rounded-full "
+              ></img>
+              <h1 class="mt-[-6vw] font-bold text-xl">{user.username}</h1>
+              <h1>{user.desc}</h1>
             </div>
-
+            {/* middleprofile */}
+            <div class=" col-span-8 grid-cols-8 grid relative top-[-7vh]">
+              <Feed username={username} />
+              <Rightbar user={user} />
+            </div>
+          </div>
         </div>
-    )
+      </div>
+    );
 }

@@ -11,6 +11,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
 import Register from "./pages/register";
+import Edit from "./pages/edit";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -25,6 +26,10 @@ function App() {
           element={user ? <Navigate to="/" /> : <Register />}
         />
         <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/profile/:username/edit"
+          element={user ? <Edit user={user} /> : <Register />}
+        />
       </Routes>
     </Router>
   );

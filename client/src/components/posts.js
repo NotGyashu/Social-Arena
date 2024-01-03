@@ -4,9 +4,11 @@ import {format} from "timeago.js";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Comments from "./comments";
 export default function Posts({ post }) {
     // const user = users.filter(u=> u.id === 1)
     const [like, setLike] = useState(post.likes);
+    const[comment,setComment] = useState(true);
     const [isliked, setIsliked] = useState(false);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user,setUser]=useState([]);
@@ -15,7 +17,6 @@ export default function Posts({ post }) {
         setIsliked(post.likes.includes(currentUser._id))
     },[currentUser._id,post.likes])
 
-    
     useEffect(()=>{
         const fetchUser = async () => {
             try {
@@ -44,66 +45,85 @@ export default function Posts({ post }) {
         fetchUser();
     },[post.userId])
 
-    function likeCounter() {
-      try{
-      axios.put("/posts/"+post._id+"/like",{userId:currentUser._id})
-      }catch(err){
+   const likeCounter = async () => {
+     try {
+       // Make the PUT request to update likes
+       await axios.put(`/posts/${post._id}/like`, { userId: currentUser._id });
 
-      }
-        setLike(isliked ? like - 1 : like + 1)
-        setIsliked(!isliked)
-    }
+       // Fetch the updated post after liking
+       const updatedPost = await axios.get(`/posts/${post._id}`);
 
+       // Update the like count directly from the response
+       setLike(updatedPost.data.likes);
+        console.log(updatedPost.data.likes.length);
+     } catch (error) {
+       console.error("Error in liking:", error.message);
+     }
+    
+   };
+    
     return (
+      <div class="box-shadow mt-8 rounded-md p-5 w-[100%] ">
+        {/* posthead */}
 
-        <div class="box-shadow mt-8 rounded-md p-5 ">
+        <div class="flex  justify-between  items-center">
+          <div class="flex items-center">
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={
+                  user.profilePicture
+                    ? user.profilePicture
+                    : "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
+                }
+                alt="its me"
+                className="h-9 w-9 rounded-full"
+              />
+            </Link>
 
-            {/* posthead */}
-           
-            <div class="flex  justify-between  items-center">
-                <div class="flex items-center">
+            <span class="px-3 font-semibold">{user.username}</span>
+            <span class="text-sm text-gray-500">{format(post.createdAt)}</span>
+          </div>
 
-                    <Link to ={`/profile/${user.username}`}>
-                
-                    <img
-                        src={ user.profilePicture? PF + user.profilePicture :PF+ "th.jpg" }
-                        alt="its me"
-                        className="h-9 w-9 rounded-full"
-                    />
-
-                    </Link>
-                    
-                    <span class="px-3 font-semibold">
-                        {user.username}
-                    </span>
-                    <span class="text-sm text-gray-500">{format(post.createdAt)}</span>
-
-                </div>
-
-                <div class="cursor-pointer">
-                    <MoreVert />
-                </div>
-            </div>
-
-            {/* postCenter */}
-
-            <div >
-                <span class=" my-16">{post.desc}</span>
-                <img src={PF + post.img} alt="marvel" class=" h-auto w-full mt-4"></img>
-            </div>
-
-            {/* postBottom */}
-
-            <div class="flex justify-between items-center">
-                <div class="flex mt-2">
-                    <img src={PF+"like.jpg"} alt="Like" class="h-6 cursor-pointer" onClick={likeCounter} ></img>
-                    <img src={PF+"heart.jpg"} alt="Love" class="h-6  cursor-pointer" onClick={likeCounter} ></img>
-                    <span>{like.length} people like it</span>
-                </div>
-                <div>
-                    <span class="border-b-2  border-dotted cursor-pointer">{post.comment} Comments</span>
-                </div>
-            </div>
+          <div class="cursor-pointer">
+            <MoreVert />
+          </div>
         </div>
-    )
+
+        {/* postCenter */}
+
+        <div>
+          <span class=" my-16">{post.desc}</span>
+          <img src={post.img} alt="marvel" class=" h-auto w-full mt-4"></img>
+        </div>
+
+        {/* postBottom */}
+
+            <div className={`${comment ? ' border h-max w-[100%]' : 'flex justify-between items-center relative'}`}>
+ 
+
+          <div class="flex mt-2">
+            <img
+              src={PF + "like.jpg"}
+              alt="Like"
+              class="h-6 cursor-pointer"
+              onClick={likeCounter}
+            ></img>
+            <img
+              src={PF + "heart.jpg"}
+              alt="Love"
+              class="h-6  cursor-pointer"
+              onClick={likeCounter}
+            ></img>
+            <span> {like.length} people like it</span>
+          </div>
+          <div onClick={()=>{setComment(true)}} class="border">
+            <span class="border-b-2  border-dotted cursor-pointer">
+              {post.comment} 
+              <Comments />
+              
+            </span>
+          </div>
+        </div>
+      </div>
+    );
 }

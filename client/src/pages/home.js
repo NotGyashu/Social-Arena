@@ -2,6 +2,8 @@ import Feed from "../components/feed";
 import Rightbar from "../components/rightbar";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
+
+
 // import { Notifications,Person } from "@mui/icons-material";
 export default function Home(){
   return (

@@ -3,6 +3,19 @@ const bcrypt = require("bcrypt");
 const { model } = require("mongoose");
 const User = require("../models/User");
 const { route } = require("./user");
+
+
+   //all();
+   router.get("/all", async (req,res) => {
+     try {
+       // Access the "users" collection and print its contents
+       const users = await User.find({}).exec();
+       res.status(200).json(users);
+       console.log('Users in the "users" collection:', users);
+     } catch (err) {
+       console.error("Error retrieving users:", err);
+     }
+   });
 //register
 router.post("/register", async  (req,res)=>{
     console.log("here");
