@@ -116,4 +116,115 @@ router.get("/profile/:username", async (req, res) => {
     res.status(500).json(err);
   }
 });
+// POST a comment for a specific post
+router.put("/:id/comment", async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const { userId, commentText } = req.body;
+
+    // Validate if userId and commentText are provided
+    if (!userId || !commentText) {
+      return res.status(400).json({ error: "userId and commentText are required fields" });
+    }
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+
+    // If the post doesn't exist, return a 404 Not Found
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Add the comment to the post's comments array
+    post.comments.push({
+      userId: userId,
+      commentText: commentText,
+    });
+
+    // Save the updated post
+    const updatedPost = await post.save();
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//delete a comment
+
+router.delete("/:post_id/comment/:id",async(req,res)=>{
+
+  const { post_id, id } = req.params;
+
+  try {
+    // Find the post by postId
+    const post = await Post.findById(post_id);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Find the index of the comment in the comments array
+    const commentIndex = post.comments.findIndex(
+      (comment) => comment._id.toString() === id
+    );
+
+    if (commentIndex === -1) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    // Remove the comment from the comments array
+    post.comments.splice(commentIndex, 1);
+
+    // Save the updated post
+    const updatedPost = await post.save();
+
+    // Respond with the updated post
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+
+})
+
+// unlike a comment
+router.put("/:userId/:postId/:commentId/like", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+    const commentId = req.params.commentId;
+    
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const comment = post.comments.find((comment) => comment._id.toString() === commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    const likedIndex = comment.likes.indexOf(userId);
+
+    if (likedIndex === -1) {
+      // If user hasn't liked the comment, add like
+      comment.likes.push(userId);
+      await post.save();
+      res.status(200).json("You liked this comment");
+    } else {
+      // If user has already liked the comment, remove like
+      comment.likes.splice(likedIndex, 1);
+      await post.save();
+      res.status(200).json("You disliked this comment");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(`Error: ${err.message}`);
+  }
+
+})
 module.exports = router;

@@ -1,17 +1,12 @@
 import { useContext, useRef, useState } from "react";
-import Home from "./home";
 import {AuthContext} from "../context/AuthContext"
 import {apicalls, logincall} from "../../src/apicalls"
 import CircularProgress from '@mui/material/CircularProgress';
-import Register from "./register";
 import { Link, Navigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import ForgetPassword from "../components/forgetPassword";
+
 export default function Login() {
     const email = useRef();
     const password = useRef();
@@ -26,9 +21,6 @@ const handleOpenForgetPassword = () => {
 const handleCloseForgetPassword = () => {
   setOpenForgetPassword(false);
 };
-
-
-
 
     //login
     const handle = (e)=>{

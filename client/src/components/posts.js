@@ -8,7 +8,7 @@ import Comments from "./comments";
 export default function Posts({ post }) {
     // const user = users.filter(u=> u.id === 1)
     const [like, setLike] = useState(post.likes);
-    const[comment,setComment] = useState(true);
+    const[comment,setComment] = useState(false);
     const [isliked, setIsliked] = useState(false);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user,setUser]=useState([]);
@@ -98,9 +98,13 @@ export default function Posts({ post }) {
 
         {/* postBottom */}
 
-            <div className={`${comment ? ' border h-max w-[100%]' : 'flex justify-between items-center relative'}`}>
- 
-
+        <div
+          className={`${
+            comment
+              ? " h-max w-[100%]"
+              : "flex justify-between items-center relative"
+          }`}
+        >
           <div class="flex mt-2">
             <img
               src={PF + "like.jpg"}
@@ -116,11 +120,15 @@ export default function Posts({ post }) {
             ></img>
             <span> {like.length} people like it</span>
           </div>
-          <div onClick={()=>{setComment(true)}} class="border">
-            <span class="border-b-2  border-dotted cursor-pointer">
-              {post.comment} 
-              <Comments />
-              
+          <div>
+            <span
+              class="border-b-2  border-dotted cursor-pointer "
+              onClick={() => {
+                setComment(true);
+              }}
+            >
+              {post.comment}
+              <Comments post={post}/>
             </span>
           </div>
         </div>

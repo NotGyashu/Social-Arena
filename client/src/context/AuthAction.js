@@ -4,12 +4,14 @@ export const LoginStart = (usercredentials)=>(
       
     }
 );
+
 export const LoginSuccess = (user)=>(
     {
         type:"Login_Sucess",
           payload:user,
     }
 );
+
 export const LoginFailure= (error)=>(
     {
         type:"Login_Fail",
