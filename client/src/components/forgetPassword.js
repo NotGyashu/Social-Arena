@@ -13,8 +13,8 @@ const ForgetPassword = ({ open, handleClose }) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  //$2b$10$xW/eHFb4Nq5MZEuPuWkz.O8UxiPtlnLVEunHO/dBS5xPQsW4ZSPRC
-  //$2b$10$xW/eHFb4Nq5MZEuPuWkz.O8UxiPtlnLVEunHO/dBS5xPQsW4ZSPRC  
+  
+  
   const update = async (e) => {
     e.preventDefault();
     try {

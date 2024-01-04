@@ -4,17 +4,16 @@ import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { format, register } from "timeago.js";
+import { format } from "timeago.js";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-const Comments = ({ post }) => {
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+const Comments = ({ post,state }) => {
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
-  const [del, setDel] = useState(false);
   const [val, setVal] = useState("");
   const [commenters, setCommenters] = useState([]);
- 
+  const [hoverIndex, setHoverIndex] = useState(null);
 
   useEffect(() => {
     const fetchCommenters = async () => {
@@ -25,7 +24,6 @@ const Comments = ({ post }) => {
             return response.data;
           })
         );
-
         setCommenters(commentersData);
       } catch (error) {
         console.error("An error occurred while fetching commenters:", error);
@@ -35,68 +33,66 @@ const Comments = ({ post }) => {
     fetchCommenters();
   }, [post.comments]);
 
-
-  const Delete = async (commentId) => {
+  const handleDelete = async (commentId) => {
     try {
-      const res = await axios.delete(`/posts/${post._id}/comment/${commentId}`);
-      console.log("Comment deleted:", res.data);
-
-      // Remove the deleted comment from the commenters state
+      await axios.delete(`/posts/${post._id}/comment/${commentId}`);
       setCommenters((prevCommenters) =>
         prevCommenters.filter((commenter) => commenter._id !== commentId)
       );
-
-      setDel(false);
     } catch (err) {
       console.error("Error deleting comment:", err);
     }
   };
 
-
-  const comment = () => {
-    setOpen(true);
-    console.log(post.comments);
+  const handleComment = () => {
+    setOpen(!open);
   };
 
-  const input = (e) => {
+  const handleInput = (e) => {
     setVal(e.target.value);
-    console.log(val);
   };
 
-  const send = async (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.put(`/posts/${post._id}/comment`, {
         userId: user._id,
         commentText: val,
       });
-
       // Add logic to handle the response, if needed
     } catch (err) {
       console.log("Error in sending comment", err);
     }
   };
 
-  const commentLiked = async(commentId)=>{
-  try{
-    const res = await axios.put(`/posts/${user._id}/${post._id}/${commentId}/like`)
-console.log(res.data);
-  }catch(err){
-    console.log("err in liking the coment",err)
-  }
+  const handleLike = async (commentId) => {
+    try {
+      const res = await axios.put(`/posts/${user._id}/${post._id}/${commentId}/like`);
+      console.log(res.data);
+    } catch (err) {
+      console.log("Error in liking the comment", err);
+    }
+  };
 
-  }
   return (
-    <div className="w-full">
-      <div onClick={comment} className={`${open ? "mt-3" : "mt-1"}`}>
-        {open ? "Comments" : <CommentIcon />}{" "}
-      </div>
+    <div
+      className={`w-[100%] ${
+        open ? "top-10 bottom-10 left-1" : " left-[92%] top-1"
+      }  relative`}
+    >
       <div
-        className={`${open ? " w-full p-2 border border-gray-200" : "hidden"} `}
+        onClick={handleComment}
+        className={` cursor-pointer inline`}
       >
+        {post.comments.length} {open ? "Comments" : <ChatBubbleOutlineIcon />}
+      </div>
+      <div className={`${open ? " p-2 " : "hidden"}`}>
         {/* comment head */}
         <div>
-          <form className="w-full flex justify-between mb-2" onSubmit={send}>
+          <form
+            className="w-full flex justify-between mb-2"
+            onSubmit={handleSend}
+          >
             <img
               src={user.profilePicture}
               alt="Profile"
@@ -106,9 +102,9 @@ console.log(res.data);
               type="text"
               id="comment"
               required
-              className="w-[90%] bg-slate-100 rounded focus:outline-none p-1 mx-1"
-              placeholder="comment"
-              onChange={input}
+              className="w-[90%] bg-slate-100 rounded focus:outline-none p-1 px-2 mx-1"
+              placeholder="add a comment"
+              onChange={handleInput}
             />
             <button type="submit">
               <SendIcon />
@@ -120,43 +116,47 @@ console.log(res.data);
           {post.comments.map((c, index) => (
             <div
               key={c._id}
-              className="m-2 hover:bg-green-100 rounded-md relative p-2"
-              onMouseEnter={() => {
-                if (commenters[index]?._id === user._id) {
-                  setDel(true);
-                }
-              }}
-              onMouseLeave={() => {
-                setDel(false);
-              }}
+              className={`m-2 hover:bg-green-100 rounded-md relative p-2 ${
+                hoverIndex === index ? "border border-gray-300" : ""
+              }`}
+              onMouseEnter={() => setHoverIndex(index)}
+              onMouseLeave={() => setHoverIndex(null)}
             >
               <img
                 src={commenters[index]?.profilePicture || ""}
                 alt="Profile"
                 className="h-7 w-7 rounded-full inline border border-green-400 m-1 "
               />
-              <div class="inline text-xs absolute p-0.5 top-[-1]">
+              <div className="inline text-xs absolute p-0.5 top-[-1]">
                 {commenters[index]?.username.split(" ")[0] || ""} &nbsp;&nbsp;
                 {format(new Date(commenters[index]?.createdAt, "en_short"))}
               </div>
-              <span class="absolute p-0.5 top-5  ">{c.commentText}</span>
-              <div class=" p-0.5 text-xs ">Reply</div>
-              <div className="inline absolute  h-1 bottom-16 right-2 ">
-                {del && (
-                  <MoreVertIcon
-                    fontSize="small"
-                    onClick={() => Delete(c._id)}
-                  />
-                )}{" "}
+              <span className="absolute p-0.5 top-5">{c.commentText}</span>
+              <div className="p-0.5 text-xs">Reply</div>
+              <div className="inline absolute h-1 bottom-16 right-2">
+                {user._id === commenters[index]?._id && (
+                  <>
+                    <MoreVertIcon
+                      fontSize="small"
+                      onClick={() => handleDelete(c._id)}
+                    />
+                    {hoverIndex === index && (
+                      <div
+                        className="z-20 absolute bg-slate-100 border rounded px-1 right-5 top-2 text-xs"
+                        onClick={() => handleDelete(c._id)}
+                      >
+                        delete
+                      </div>
+                    )}
+                  </>
+                )}
                 <FavoriteBorderIcon
                   style={{ fontSize: "16px" }}
-                  onClick={() => {
-                    commentLiked(c._id);
-                  }}
+                  onClick={() => handleLike(c._id)}
                 />
               </div>
-              <span className="inline absolute  h-1 bottom-[2.8rem]  right-[.80rem]  text-xs">
-                {post.comments[index]?.likes.length || ""}
+              <span className="inline absolute h-1 bottom-[2.8rem] right-[.80rem] text-xs">
+                {c.likes.length || ""}
               </span>
             </div>
           ))}

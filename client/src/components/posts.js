@@ -98,40 +98,29 @@ export default function Posts({ post }) {
 
         {/* postBottom */}
 
-        <div
-          className={`${
-            comment
-              ? " h-max w-[100%]"
-              : "flex justify-between items-center relative"
-          }`}
-        >
-          <div class="flex mt-2">
-            <img
-              src={PF + "like.jpg"}
-              alt="Like"
-              class="h-6 cursor-pointer"
-              onClick={likeCounter}
-            ></img>
-            <img
-              src={PF + "heart.jpg"}
-              alt="Love"
-              class="h-6  cursor-pointer"
-              onClick={likeCounter}
-            ></img>
-            <span> {like.length} people like it</span>
-          </div>
-          <div>
-            <span
-              class="border-b-2  border-dotted cursor-pointer "
-              onClick={() => {
-                setComment(true);
-              }}
-            >
+        
+          <div class={`relative`}>
+            <div class="flex mt-2 absolute top-0 left-0">
+              <img
+                src={PF + "like.jpg"}
+                alt="Like"
+                class="h-6 cursor-pointer"
+                onClick={likeCounter}
+              ></img>
+              <img
+                src={PF + "heart.jpg"}
+                alt="Love"
+                class="h-6  cursor-pointer"
+                onClick={likeCounter}
+              ></img>
+              <span> {like.length} people like it</span>
+            </div>
+            <div class="">
               {post.comment}
-              <Comments post={post}/>
-            </span>
+              <Comments post={post} />
+            </div>
           </div>
-        </div>
+        
       </div>
     );
 }
