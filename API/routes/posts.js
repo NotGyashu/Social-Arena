@@ -142,14 +142,18 @@ router.put("/:id/comment", async (req, res) => {
     });
 
     // Save the updated post
-    const updatedPost = await post.save();
+    await post.save();
 
-    res.status(200).json(updatedPost);
+    // Return the latest comments instead of the updated post
+    const latestComments = post.comments;
+
+    res.status(200).json(latestComments);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 //delete a comment
 
@@ -178,10 +182,12 @@ router.delete("/:post_id/comment/:id",async(req,res)=>{
     post.comments.splice(commentIndex, 1);
 
     // Save the updated post
-    const updatedPost = await post.save();
+    await post.save();
 
-    // Respond with the updated post
-    res.status(200).json(updatedPost);
+    // Return the latest comments instead of the updated post
+    const latestComments = post.comments;
+
+    res.status(200).json(latestComments);
   } catch (error) {
     console.error("Error deleting comment:", error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -5,6 +5,9 @@
     .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
     }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
 
     .custom-scrollbar::-webkit-scrollbar-track {
         background: transparent;

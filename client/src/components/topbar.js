@@ -26,7 +26,7 @@ export default function Topbar() {
   
 
   return (
-    <div class="grid grid-cols-10 py-3 fixed top-0 z-10 px-2 pt-3 text-lg bg-green-500 w-full h-12  ">
+    <div class="grid grid-cols-10 py-3 fixed top-0 z-50 px-2 pt-3 text-lg bg-green-500 w-full h-12  ">
       <div class="text-white  ml-7 col-span-2">
         <span class=" h-4">S</span>
         <span>ocialArena</span>

@@ -1,44 +1,50 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
-import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { format } from "timeago.js";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-const Comments = ({ post,state }) => {
+
+const Comments = ({ post }) => {
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [val, setVal] = useState("");
   const [commenters, setCommenters] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
+  const [Post,setPost] = useState(post)
+const scrollref = useRef()
+
+  const fetchCommenters = async () => {
+    console.log("joj")
+    try {
+      const commentersData = await Promise.all(
+        Post.comments.map(async (comment) => {
+          const response = await axios.get(`/user?userId=${comment.userId}`);
+          return response.data;
+        })
+      );
+
+      setCommenters(commentersData);
+    } catch (error) {
+      console.error("An error occurred while fetching commenters:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchCommenters = async () => {
-      try {
-        const commentersData = await Promise.all(
-          post.comments.map(async (comment) => {
-            const response = await axios.get(`/user?userId=${comment.userId}`);
-            return response.data;
-          })
-        );
-        setCommenters(commentersData);
-      } catch (error) {
-        console.error("An error occurred while fetching commenters:", error);
-      }
-    };
-
     fetchCommenters();
-  }, [post.comments]);
+    
+  }, [Post.comments]);
 
   const handleDelete = async (commentId) => {
     try {
-      await axios.delete(`/posts/${post._id}/comment/${commentId}`);
-      setCommenters((prevCommenters) =>
-        prevCommenters.filter((commenter) => commenter._id !== commentId)
-      );
+      const res = await axios.delete(`/posts/${Post._id}/comment/${commentId}`);
+      // Assuming your server returns the updated comments
+     setPost({
+       ...post,
+       comments: res.data,
+     });
     } catch (err) {
       console.error("Error deleting comment:", err);
     }
@@ -55,20 +61,42 @@ const Comments = ({ post,state }) => {
   const handleSend = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`/posts/${post._id}/comment`, {
+      const res = await axios.put(`/posts/${Post._id}/comment`, {
         userId: user._id,
         commentText: val,
       });
-      // Add logic to handle the response, if needed
+
+      setVal("");
+
+      // Manually update the commenters state with the new comment
+      // Update the post state with the new comments
+      setPost({
+        ...post,
+        comments: res.data,
+      });
+
+      console.log(res.data);
+
+      // Scroll to the end of the comments div
+      const commentsDiv = scrollref.current;
+      commentsDiv.scrollTop = commentsDiv.scrollHeight;
     } catch (err) {
       console.log("Error in sending comment", err);
     }
   };
 
+
   const handleLike = async (commentId) => {
     try {
-      const res = await axios.put(`/posts/${user._id}/${post._id}/${commentId}/like`);
+      const res = await axios.put(
+        `/posts/${user._id}/${Post._id}/${commentId}/like`
+      );
+      // Assuming your server returns the updated comment with likes
       console.log(res.data);
+      setPost({
+        ...post,
+        comments: res.data,
+      });
     } catch (err) {
       console.log("Error in liking the comment", err);
     }
@@ -80,11 +108,8 @@ const Comments = ({ post,state }) => {
         open ? "top-10 bottom-10 left-1" : " left-[92%] top-1"
       }  relative`}
     >
-      <div
-        onClick={handleComment}
-        className={` cursor-pointer inline`}
-      >
-        {post.comments.length} {open ? "Comments" : <ChatBubbleOutlineIcon />}
+      <div onClick={handleComment} className={` cursor-pointer inline`}>
+        {Post.comments.length} {open ? "Comments" : <ChatBubbleOutlineIcon />}
       </div>
       <div className={`${open ? " p-2 " : "hidden"}`}>
         {/* comment head */}
@@ -105,6 +130,7 @@ const Comments = ({ post,state }) => {
               className="w-[90%] bg-slate-100 rounded focus:outline-none p-1 px-2 mx-1"
               placeholder="add a comment"
               onChange={handleInput}
+              value={val}
             />
             <button type="submit">
               <SendIcon />
@@ -112,8 +138,11 @@ const Comments = ({ post,state }) => {
           </form>
         </div>
         {/* comment body */}
-        <div className="py-2 px-6 max-h-48 overflow-y-auto custom-scrollbar">
-          {post.comments.map((c, index) => (
+        <div
+          className="py-2 px-6 max-h-48 overflow-y-auto custom-scrollbar"
+          ref={scrollref}
+        >
+          {Post.comments.map((c, index) => (
             <div
               key={c._id}
               className={`m-2 hover:bg-green-100 rounded-md relative p-2 ${
@@ -128,8 +157,11 @@ const Comments = ({ post,state }) => {
                 className="h-7 w-7 rounded-full inline border border-green-400 m-1 "
               />
               <div className="inline text-xs absolute p-0.5 top-[-1]">
-                {commenters[index]?.username.split(" ")[0] || ""} &nbsp;&nbsp;
-                {format(new Date(commenters[index]?.createdAt, "en_short"))}
+                {commenters[index]?.username
+                  ? commenters[index]?.username.split(" ")[0]
+                  : ""}{" "}
+                &nbsp;&nbsp;
+                {format(c.createdAt)}
               </div>
               <span className="absolute p-0.5 top-5">{c.commentText}</span>
               <div className="p-0.5 text-xs">Reply</div>
