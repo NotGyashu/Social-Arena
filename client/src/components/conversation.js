@@ -11,7 +11,7 @@ export const Conversation = ({ conversation, currentUser }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(`/user?userId=${friendId}`);
-        console.log(res.data);
+      
         setUser(res.data)
       } catch (err) {
         console.log(err);
@@ -24,7 +24,7 @@ export const Conversation = ({ conversation, currentUser }) => {
       {user && (
         <>
           <img
-            src={user.profilePicture}
+            src={user.profilePicture }
             alt="pic"
             class="h-9 w-9 rounded-full border border-green-600"
           />

@@ -4,7 +4,7 @@ import { format } from "timeago.js";
 
 export const Messages = ({ message,own }) => {
 
-console.log(message.text)
+
  
 
   return (

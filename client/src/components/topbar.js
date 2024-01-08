@@ -54,11 +54,13 @@ export default function Topbar() {
           </a>
         </div>
         <div class="flex space-x-1 relative left-6">
-          <Person />
           <sup class="bg-red-600 h-3 w-3 rounded-full relative top-0 right-4 flex justify-center items-center ">
             1
           </sup>
-          <Chat />
+          <Person />
+          <Link to="/messenger">
+            <Chat />
+          </Link>
           <sup class="bg-red-600 h-3 w-3 rounded-full top-0 right-4 flex justify-center items-center ">
             1
           </sup>
