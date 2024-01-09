@@ -219,13 +219,13 @@ router.put("/:userId/:postId/:commentId/like", async (req, res) => {
     if (likedIndex === -1) {
       // If user hasn't liked the comment, add like
       comment.likes.push(userId);
-      await post.save();
-      res.status(200).json("You liked this comment");
+  const response  =   await post.save();
+    return  res.status(200).json(response);
     } else {
       // If user has already liked the comment, remove like
       comment.likes.splice(likedIndex, 1);
-      await post.save();
-      res.status(200).json("You disliked this comment");
+    const response =  await post.save();
+     return  res.status(200).json(response);
     }
   } catch (err) {
     console.error(err);

@@ -13,7 +13,7 @@ const navigate = useNavigate();
   const { user : currentUser } = useContext(AuthContext);
 
     const HomeRightbar = ()=>{
-   
+   console.log(currentUser.followings);
 return (
   <div class="  py-5 mt-12  shrink-[2] col-span-3  ">
     {/* BIRTHCONTAINER */}
@@ -84,10 +84,14 @@ return (
               {" "}
               User Friends
             </h1>
-            <ul class="flex flex-wrap">
-              {users.map((u) => (
-                <Friends key={u.id} user={u} userFriends />
-              ))}
+            <ul class="flex flex-wrap justify-around">
+              {user.followings && user.followings.length > 0 ? (
+                user.followings.map((u) => (
+                  <Friends key={u.id} user={u} userFriends />
+                ))
+              ) : (
+                <p class="text-xl mt-2">No Freinds ...</p>
+              )}
             </ul>
           </div>
         );

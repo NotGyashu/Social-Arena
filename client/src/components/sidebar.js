@@ -40,7 +40,7 @@ fetchData();
       
           <ul>
             <div class="p-2 text-2xl font-semibold text-green-600 underline">
-              Freinds
+            Suggestions
             </div>
             {user.map((u) => (
               <Friends key={user.id} user={u} />

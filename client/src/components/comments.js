@@ -92,10 +92,10 @@ const scrollref = useRef()
         `/posts/${user._id}/${Post._id}/${commentId}/like`
       );
       // Assuming your server returns the updated comment with likes
-      console.log(res.data);
+      console.log(res.data.comments.length);
       setPost({
         ...post,
-        comments: res.data,
+        comments: res.data.comments,
       });
     } catch (err) {
       console.log("Error in liking the comment", err);
@@ -119,7 +119,10 @@ const scrollref = useRef()
             onSubmit={handleSend}
           >
             <img
-              src={user.profilePicture}
+              src={
+                user.profilePicture ||
+                "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
+              }
               alt="Profile"
               className="h-9 w-9 rounded-full inline border border-green-400"
             />
@@ -152,7 +155,10 @@ const scrollref = useRef()
               onMouseLeave={() => setHoverIndex(null)}
             >
               <img
-                src={commenters[index]?.profilePicture || ""}
+                src={
+                  commenters[index]?.profilePicture ||
+                  "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
+                }
                 alt="Profile"
                 className="h-7 w-7 rounded-full inline border border-green-400 m-1 "
               />
@@ -165,7 +171,7 @@ const scrollref = useRef()
               </div>
               <span className="absolute p-0.5 top-5">{c.commentText}</span>
               <div className="p-0.5 text-xs">Reply</div>
-              <div className="inline absolute h-1 bottom-16 right-2">
+              <div className="inline absolute h-1 bottom-16 right-2 cursor-pointer">
                 {user._id === commenters[index]?._id && (
                   <>
                     <MoreVertIcon
@@ -174,7 +180,7 @@ const scrollref = useRef()
                     />
                     {hoverIndex === index && (
                       <div
-                        className="z-20 absolute bg-slate-100 border rounded px-1 right-5 top-2 text-xs"
+                        className="z-20 absolute bg-slate-100 border rounded px-1 right-5 top-2 text-xs "
                         onClick={() => handleDelete(c._id)}
                       >
                         delete
@@ -187,7 +193,7 @@ const scrollref = useRef()
                   onClick={() => handleLike(c._id)}
                 />
               </div>
-              <span className="inline absolute h-1 bottom-[2.8rem] right-[.80rem] text-xs">
+              <span className="inline absolute h-1 bottom-[2.8rem] right-[.80rem] text-xs ">
                 {c.likes.length || ""}
               </span>
             </div>

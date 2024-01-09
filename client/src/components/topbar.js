@@ -1,12 +1,13 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Topbar() {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState([]);
+  const navigate = useNavigate()
   //fetching the user
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Topbar() {
 
       <div class="flex text-white justify-around   col-span-3 relative left-5 ">
         <div className="topbarLinks" class="flex space-x-4">
-          <a href="kh" className="topbarLink">
+          <a href="/" className="hover:font-semibold px-1">
             Homepage
           </a>
           <a href="kh" className="topbarLink">
@@ -53,14 +54,17 @@ export default function Topbar() {
             New
           </a>
         </div>
-        <div class="flex space-x-1 relative left-6">
+        <div class="flex space-x-1 relative left-6 cursor-pointer">
+        <Person />
           <sup class="bg-red-600 h-3 w-3 rounded-full relative top-0 right-4 flex justify-center items-center ">
             1
           </sup>
-          <Person />
-          <Link to="/messenger">
-            <Chat />
-          </Link>
+          
+        
+            <Chat onClick = {()=>{
+              navigate("/messenger")
+            }} />
+        
           <sup class="bg-red-600 h-3 w-3 rounded-full top-0 right-4 flex justify-center items-center ">
             1
           </sup>

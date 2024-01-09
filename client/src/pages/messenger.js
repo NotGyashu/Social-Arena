@@ -22,8 +22,6 @@ const [socket,setSocket] = useState(null)
 
  
 
-
-
 useEffect(() => {
   const newSocket = io("ws://localhost:8900");
   setSocket(newSocket);
@@ -40,14 +38,39 @@ useEffect(()=>{
   setMessages((prev)=>[...prev,arrivalMessage])
 },[arrivalMessage,currentChat])
 
+
+const Online = (users) => {
+  setOnlineUsers((prevUsers) => {
+     prevUsers = prevUsers || [];
+    // Use the callback form of setOnlineUsers to ensure you're working with the latest state
+    const updatedUsers = users.map((user) => user.userId);
+    return [...prevUsers, ...updatedUsers];
+  });
+};
+
+const updatedOnlineUser = (users) => {
+ setOnlineUsers((prevUsers) => {
+   prevUsers = prevUsers || [];
+   const updatedUsers = users.map((user) => user.userId);
+   const newOnlineUsers = prevUsers.filter((prevUser) =>
+     updatedUsers.includes(prevUser)
+   );
+
+   return newOnlineUsers;
+ });
+};
+
 useEffect(() => {
   if (socket) {
     socket.emit("addUser", user._id);
-
     socket.on("getUsers", (users) => {
-     setOnlineUsers(user.followings.filter(f => users.some(u=> u.userId === f)))
+      console.log(users)
+    Online(users);
     });
-
+    socket.on("updatedUsers",(users)=>{
+       console.log(users);
+      updatedOnlineUser(users);
+    })
      socket.on("getMessage",data=>{
     setArrivalMessage({
       sender:data.senderId,
@@ -59,7 +82,9 @@ useEffect(() => {
 }, [socket, user]);
 
 
-
+useEffect(() => {
+  console.log(onlineUsers);
+}, [onlineUsers]);
 
  useEffect(()=>{
 
@@ -144,6 +169,7 @@ useEffect(()=>{
            
        
             <div class=" h-[85vh]  overflow-y-auto no-scrollbar">
+            <div class="p-2 text-2xl">Messages</div>
               {conversation.map((c) => (
                 <div
                   onClick={() => {

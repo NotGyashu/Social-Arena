@@ -7,8 +7,8 @@ import { AuthContext } from "../context/AuthContext";
 import Comments from "./comments";
 export default function Posts({ post }) {
     // const user = users.filter(u=> u.id === 1)
+
     const [like, setLike] = useState(post.likes);
-    const[comment,setComment] = useState(false);
     const [isliked, setIsliked] = useState(false);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user,setUser]=useState([]);

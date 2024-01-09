@@ -6,7 +6,7 @@ import Topbar from "../components/topbar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 export default function Profile() {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
         const [user,setUser]=useState([]);
         const [hovered,setHovered] = useState(false)
         const username= useParams().username

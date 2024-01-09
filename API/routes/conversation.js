@@ -33,6 +33,17 @@ res.status(200).json(conversation)
         res.status(500).json(err)
     }
 })
+//fetch a conversation with two id
+router.get("/:firstId/:secondId",async(req,res)=>{
+    try{
+        const conversation = await Conversation.findOne({
+          members: { $all: [req.params.firstId, req.params.secondId] },
+        });
+res.status(200).json(conversation)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
 
 
 module.exports = router;

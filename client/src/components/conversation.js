@@ -24,7 +24,10 @@ export const Conversation = ({ conversation, currentUser }) => {
       {user && (
         <>
           <img
-            src={user.profilePicture }
+            src={
+              user.profilePicture ||
+              "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
+            }
             alt="pic"
             class="h-9 w-9 rounded-full border border-green-600"
           />
