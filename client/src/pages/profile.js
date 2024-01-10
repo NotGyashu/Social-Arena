@@ -39,11 +39,11 @@ export default function Profile() {
         fetchUser();
     },[username])
     return (
-      <div>
+      <div class=" no-scrollbar">
         <Topbar />
         <div class="grid grid-cols-10 ">
           <Sidebar />
-          <div class=" col-span-8 overflow-y-scroll custom-scrollbar   ">
+          <div class=" col-span-8 overflow-y-scroll no-scrollbar  ">
             {/* profiletop */}
             <div class=" w-full mt-14 flex flex-col items-center justify-center ">
               <img
@@ -69,7 +69,7 @@ export default function Profile() {
               <h1>{user.desc}</h1>
             </div>
             {/* middleprofile */}
-            <div class=" col-span-8 grid-cols-8 grid relative top-[-7vh]">
+            <div class=" col-span-8 grid-cols-8 grid relative top-[-7vh] overflow-x-hidden no-scrollbar">
               <Feed username={username} />
               <Rightbar user={user} />
             </div>

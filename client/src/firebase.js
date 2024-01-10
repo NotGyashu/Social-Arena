@@ -3,15 +3,21 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 const apiKey = String(process.env.FIREBASE_API_KEY);
+const authDomain = String(process.env.FIREBASE_AUTH_DOMAIN);
+const projectId = String(process.env.FIREBASE_PROJECT_ID);
+const storageBucket = String(process.env.FIREBASE_STORAGE_BUCKET);
+const messagingSenderId = String(process.env.FIREBASE_MESSAGE_SENDER_ID);
+const appId = String(process.env.FIREBASE_APP_ID);
+const measurementId = String(process.env.FIREBASE_MEASUREMENT_ID);
 
 const firebaseConfig = {
   apiKey: apiKey,
-  authDomain: "socialarena-d6016.firebaseapp.com",
-  projectId: "socialarena-d6016",
-  storageBucket: "socialarena-d6016.appspot.com",
-  messagingSenderId: "922364075517",
-  appId: "1:922364075517:web:f5d2563eb849d5c150cd94",
-  measurementId: "G-K5WWVX2NS2",
+  authDomain: authDomain,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
+  appId: appId,
+  measurementId: measurementId,
 };
 
 // Initialize Firebase

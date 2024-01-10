@@ -37,6 +37,9 @@ console.log(user.username, username);
       <div class="  p-4 mt-12  col-span-5">
         {(user.username === username || username === undefined) && <Share />}
 
+
+
+
         {posts.map((p) => (
           <Posts key={p._id} post={p} />
         ))}

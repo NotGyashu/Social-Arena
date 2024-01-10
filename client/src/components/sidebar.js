@@ -36,7 +36,7 @@ fetchData();
   }
   
     return (
-      <div class="col-span-2 border sticky top-12 overflow-y-scroll custom-scrollbar  max-h-screen ">
+      <div class=" col-span-2 border sticky top-12 overflow-y-scroll custom-scrollbar  max-h-screen ">
       
           <ul>
             <div class="p-2 text-2xl font-semibold text-green-600 underline">

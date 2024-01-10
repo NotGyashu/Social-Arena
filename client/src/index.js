@@ -6,7 +6,7 @@ import "./index.css";
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <App class="no-scrollbar"/>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
