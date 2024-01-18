@@ -34,15 +34,15 @@ useEffect(()=>{
 console.log(user.username, username);
 
     return (
-      <div class="  p-4 mt-12  col-span-5">
+      <div className="p-4 mt-12 col-span-5">
         {(user.username === username || username === undefined) && <Share />}
 
-
-
-
-        {posts.map((p) => (
-          <Posts key={p._id} post={p} />
-        ))}
+        {posts.length > 0 ? (
+          posts.map((p) => <Posts key={p._id} post={p} />)
+        ) : (
+          <img src="https://uploads.dailydot.com/e52/31/87610fa1a0ae891d.png?auto=compress&fm=png" alt="no posts" class="mt-3"></img>
+        )}
       </div>
     );
+
 }
