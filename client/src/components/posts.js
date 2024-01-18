@@ -98,29 +98,31 @@ export default function Posts({ post }) {
 
         {/* postBottom */}
 
-        
-          <div class={`relative`}>
-            <div class="flex mt-2 absolute top-0 left-0">
-              <img
-                src={PF + "like.jpg"}
-                alt="Like"
-                class="h-6 cursor-pointer"
-                onClick={likeCounter}
-              ></img>
-              <img
-                src={PF + "heart.jpg"}
-                alt="Love"
-                class="h-6  cursor-pointer"
-                onClick={likeCounter}
-              ></img>
-              <span> {like.length} people like it</span>
-            </div>
-            <div class="">
-              {post.comment}
-              <Comments post={post} />
-            </div>
+        <div class={`relative`}>
+          <div class="flex mt-2 absolute top-0 left-0">
+            <img
+              src={
+                "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/like.jpg?alt=media&token=1b28a099-a14e-4f6e-b557-e7cfd89d25be"
+              }
+              alt="Like"
+              class="h-6 cursor-pointer"
+              onClick={likeCounter}
+            ></img>
+            <img
+              src={
+                "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/heart.jpg?alt=media&token=164ec47a-6560-4558-808e-a624d265d305"
+              }
+              alt="Love"
+              class="h-6  cursor-pointer"
+              onClick={likeCounter}
+            ></img>
+            <span> {like.length} people like it</span>
           </div>
-        
+          <div class="">
+            {post.comment}
+            <Comments post={post} />
+          </div>
+        </div>
       </div>
     );
 }

@@ -18,7 +18,7 @@ function App() {
   const { user } = useContext(AuthContext);
 
   return (
-    <Router>
+    <Router basename="/Social-Arena">
       <Routes>
         <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

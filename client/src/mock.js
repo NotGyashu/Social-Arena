@@ -9,32 +9,7 @@ export const users=[
         profilePicture:"Persons/user1.jpg",
         username:"Nauman ur Rahman",
     },
-    {
-        id:3,
-        profilePicture:"Persons/user2.jpg",
-        username:"Ayan Khan",
-    },
-    {
-        id:4,
-        profilePicture:"Persons/user3.jpg",
-        username:"Rabia Bushra",
-    },
-    {
-        id:5,
-        profilePicture:"Persons/user4.jpg",
-        username:"Ashraf Khan",
-    },
-    {
-        id:6,
-        profilePicture:"Persons/user5.jpg",
-        username:"Sajid Alam",
-    },
-    {
-        id:7,
-        profilePicture:"Persons/user6.jpg",
-        username:"Md Arman",
-    }
-]
+    ]
 
 export const posts =[
     {
