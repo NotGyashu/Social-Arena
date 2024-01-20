@@ -2,12 +2,12 @@ export const users=[
     {
         id:1,
         profilePicture:"Persons/th.jpg",
-        username:"Gyashu Rahman",
+        username:"Gyas Ur Rahman",
     },
     {
         id:2,
         profilePicture:"Persons/user1.jpg",
-        username:"Nauman ur Rahman",
+        username:"Gojo Sataru",
     },
     ]
 

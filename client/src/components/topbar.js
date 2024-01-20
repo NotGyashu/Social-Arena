@@ -44,7 +44,7 @@ export default function Topbar() {
 
       <div class="flex text-white justify-around   col-span-3 relative left-5 ">
         <div className="topbarLinks" class="flex space-x-4">
-          <a href="/Social-Arena" className="hover:font-semibold px-1">
+          <a href="/" className="hover:font-semibold px-1">
             Homepage
           </a>
           <a href="kh" className="topbarLink">

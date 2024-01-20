@@ -67,11 +67,11 @@ const handleCloseForgetPassword = () => {
                 ref={password}
                 required
                 minLength={6}
-              />
-              <IconButton
+               />
+               <IconButton
                 class="w-[15%] text-gray-400 absolute right-0"
                 onClick={handleTogglePassword}
-              >
+               >
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </div>
