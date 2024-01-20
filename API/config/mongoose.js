@@ -1,20 +1,21 @@
-// get the library
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const url = process.env.URL;
 
 // connect the database
-mongoose.connect('mongodb://127.0.0.1:27017/SM_API');
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-//acquire the connection (to check if it is succesfull)
+// acquire the connection (to check if it is successful)
 const db = mongoose.connection;
 
-// error 
-db.on('error', console.error.bind(console, 'error connecting to db'));
+// error
+db.on("error", console.error.bind(console, "error connecting to db"));
 
 // up and running then print the message
-
-db.once('open', function(){
-    console.log("successfully connect to the database");
+db.once("open", function () {
+  console.log("successfully connected to the database");
 });
-
 
 module.exports = db;

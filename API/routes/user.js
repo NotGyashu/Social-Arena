@@ -49,7 +49,9 @@ router.put("/:id", async (req,res)=>{
         });
     }
 })
+
 //delete user
+
 router.delete("/:id", async (req,res)=>{
     if(req.body._id === req.params.id || req.body.isAdmin){
        
@@ -64,6 +66,7 @@ router.delete("/:id", async (req,res)=>{
         return res.status(403).json("you are not authorised to delete this this")
     }
 })
+
 //get user
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
