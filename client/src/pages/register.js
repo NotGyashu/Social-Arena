@@ -10,7 +10,7 @@ export default function Register() {
   const passwordagain = useRef();
   const PhoneNo = useRef();
   const history = useNavigate();
-
+  const navigate = useNavigate();
   const handle = async (e) => {
      e.preventDefault();
     if (password.current.value !== passwordagain.current.value) {
@@ -93,9 +93,13 @@ export default function Register() {
           <button class="w-full h-10 flex justify-center items-center  bg-green-500 text-white p-3  rounded-md   " type="submit">
             Register
           </button>
-          <a href="/login" class="text-blue-700 hover:text-blue-400 ml-12 ">
+          <div 
+          onClick={()=>{
+navigate("/login")
+          }}
+           class="text-blue-700 hover:text-blue-400 ml-12 cursor-pointer underline">
             Already have an account?
-          </a>
+          </div>
           <hr></hr>
          
         </form>
