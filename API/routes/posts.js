@@ -70,22 +70,22 @@ router.get("/:id", async (req, res) => {
     res.status(500).json(`err in getting the post ${err}`);
   }
 });
-async function getAllObjectsFromMongoDB() {
-  try {
+// async function getAllObjectsFromMongoDB() {
+//   try {
     
-    // Find all objects in the database
-    const results = await Post.find({});
+//     // Find all objects in the database
+//     const results = await Post.find({});
 
-    // Log the objects
-    console.log("Before query");
+//     // Log the objects
+//     console.log("Before query");
     
-    console.log("After query", results);
+//     console.log("After query", results);
 
-  } catch (err) {
-    console.error("Error retrieving objects from MongoDB:", err);
-  }
+//   } catch (err) {
+//     console.error("Error retrieving objects from MongoDB:", err);
+//   }
 
-}
+// }
 
 
 //get all the posts
