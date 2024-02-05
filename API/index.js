@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const  Conversation  = require("./routes/conversation");
 const  messageauth  = require("./routes/message");
-
+const cors = require("cors");
 dotenv.config();
 
 
@@ -23,11 +23,19 @@ app.use("/api/auth",authRoute);
 app.use("/api/posts",postRoute);
 app.use("/api/conversation", Conversation);
 app.use("/api/message",messageauth);
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    // Allow requests from a specific origin
+  })
+);
 // app.use("/public/images",express.static(path.join(__dirname,'public/images')))
 
 const io = require("socket.io")(8900, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
   },
 });
 
