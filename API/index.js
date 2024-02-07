@@ -24,14 +24,12 @@ app.use("/api/posts",postRoute);
 app.use("/api/conversation", Conversation);
 app.use("/api/message",messageauth);
 app.use(
-  cors(
-  //   {
-  //   origin: "*",
-  //   methods: ["GET", "POST", "PUT", "DELETE"],
-  //   credentials: true,
-  //   // Allow requests from a specific origin
-  // }
-  )
+  cors({
+    origin: "https://social-arena.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    // Allow requests from a specific origin
+  })
 );
 // app.use("/public/images",express.static(path.join(__dirname,'public/images')))
 
