@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
+      "source": "/(.*)",
       "destination": "https://social-arena-server.onrender.com/api/$1"
     }
   ]
