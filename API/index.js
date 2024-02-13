@@ -1,41 +1,38 @@
 const express = require("express");
 const app = express();
-const mongoose=require("mongoose");
-const db = require("./config/mongoose");;
+const mongoose = require("mongoose");
+const db = require("./config/mongoose");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const  Conversation  = require("./routes/conversation");
-const  messageauth  = require("./routes/message");
+const Conversation = require("./routes/conversation");
+const messageauth = require("./routes/message");
 const cors = require("cors");
 dotenv.config();
-
 
 //middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
-app.use("/api/user",userRoute);
-app.use("/api/auth",authRoute);
-app.use("/api/posts",postRoute);
+app.use("/api/user", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/posts", postRoute);
 app.use("/api/conversation", Conversation);
-app.use("/api/message",messageauth);
+app.use("/api/message", messageauth);
 app.use(
   cors({
-    origin: "https://social-arena.vercel.app",
+    origin: "https://social-arena.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    // Allow requests from a specific origin
   })
 );
-// app.use("/public/images",express.static(path.join(__dirname,'public/images')))
 
 const io = require("socket.io")(8900, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://social-arena.vercel.app/",
   },
 });
 
@@ -54,6 +51,7 @@ const removeUser = (socketId) => {
 const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
+
 io.on("connection", (socket) => {
   // when connect
   console.log("A user connected.");
@@ -80,7 +78,6 @@ io.on("connection", (socket) => {
   });
 });
 
-
-app.listen(process.env.PORT || 5000,()=>{
-    console.log('server is running on port : 5000');
-})
+app.listen(process.env.PORT || 5000, () => {
+  console.log("server is running on port : 5000");
+});
