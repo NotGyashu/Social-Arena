@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://social-arena-server.onrender.com/api/$1"
+      "destination": "https://social-arena-server.onrender.com/$1"
     }
   ]
 }
