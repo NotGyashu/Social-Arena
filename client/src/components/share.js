@@ -23,7 +23,7 @@ const [data, setData] = useState([]);
 useEffect(() => {
   const fetchUser = async () => {
     try {
-      const res = await axios.get(`/user?userId=${currentUser._id}`);
+      const res = await axios.get(`/api/user?userId=${currentUser._id}`);
       setData(res.data);
     } catch (error) {
       // Handle the error here

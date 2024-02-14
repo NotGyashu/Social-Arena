@@ -21,7 +21,9 @@ const scrollref = useRef()
     try {
       const commentersData = await Promise.all(
         Post.comments.map(async (comment) => {
-          const response = await axios.get(`/user?userId=${comment.userId}`);
+          const response = await axios.get(
+            `/api/user?userId=${comment.userId}`
+          );
           return response.data;
         })
       );
@@ -39,7 +41,9 @@ const scrollref = useRef()
 
   const handleDelete = async (commentId) => {
     try {
-      const res = await axios.delete(`/posts/${Post._id}/comment/${commentId}`);
+      const res = await axios.delete(
+        `/api/posts/${Post._id}/comment/${commentId}`
+      );
       // Assuming your server returns the updated comments
      setPost({
        ...post,
@@ -61,7 +65,7 @@ const scrollref = useRef()
   const handleSend = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`/posts/${Post._id}/comment`, {
+      const res = await axios.put(`/api/posts/${Post._id}/comment`, {
         userId: user._id,
         commentText: val,
       });
@@ -89,7 +93,7 @@ const scrollref = useRef()
   const handleLike = async (commentId) => {
     try {
       const res = await axios.put(
-        `/posts/${user._id}/${Post._id}/${commentId}/like`
+        `/api/posts/${user._id}/${Post._id}/${commentId}/like`
       );
       // Assuming your server returns the updated comment with likes
       console.log(res.data.comments.length);

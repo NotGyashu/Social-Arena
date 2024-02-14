@@ -23,7 +23,7 @@ export default function Register() {
         PhoneNo: PhoneNo.current.value,
       };
       try {
-        await axios.post("/auth/register", user);
+        await axios.post("/api/auth/register", user);
         history("login");
       } catch (err) {
         console.log(err);

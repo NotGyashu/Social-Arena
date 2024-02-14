@@ -90,9 +90,7 @@ useEffect(() => {
 
   const getConversation = async()=>{ 
     try{
-      const res = await axios.get(
-  `/conversation/${user._id}`
-);
+      const res = await axios.get(`/api/conversation/${user._id}`);
 setConversation(res.data);
 
 }catch(err){
@@ -108,7 +106,7 @@ useEffect(()=>{
   const fetchMessage = async()=>{
 try{
 
-const message = await axios.get(`/message/${currentChat?._id}`);
+const message = await axios.get(`/api/message/${currentChat?._id}`);
 setMessages(message.data)
 
 }catch(err){
@@ -143,7 +141,7 @@ const send = async(e)=>{
   })
 
 try{
-  const res = await axios.post(`/message/create`,message)
+  const res = await axios.post(`/api/message/create`, message);
 setMessages([...messages,res.data.savedMessage])
 setNewMessage("")
 

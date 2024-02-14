@@ -11,7 +11,7 @@ const [sender,setSender] = useState(null)
  useEffect(() => {
    const sender = async () => {
      try {
-       const res = await axios.get(`/user?userId=${message.sender}`);
+       const res = await axios.get(`/api/user?userId=${message.sender}`);
        console.log(res.data);
        
        setSender(res.data);

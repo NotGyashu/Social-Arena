@@ -15,7 +15,7 @@ const Follow = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`/user?username=${celebrity}`);
+        const res = await axios.get(`/api/user?username=${celebrity}`);
         setCelId(res.data._id);
         setFollowers(res.data.followers);
       } catch (error) {
@@ -33,7 +33,7 @@ const Follow = () => {
 
   const follow = async () => {
     try {
-      const res = await axios.put(`/user/${celId}/follow`, fan);
+      const res = await axios.put(`/api/user/${celId}/follow`, fan);
       if (res.status === 200) {
         setState("Following");
         setFollowing(true);
@@ -45,7 +45,7 @@ const Follow = () => {
 
   const unfollow = async () => {
     try {
-      const res = await axios.put(`/user/${celId}/unfollow`, fan);
+      const res = await axios.put(`/api/user/${celId}/unfollow`, fan);
       if (res.status === 200) {
         setState("Follow");
         setFollowing(false);

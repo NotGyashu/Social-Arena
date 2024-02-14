@@ -14,8 +14,8 @@ useEffect(()=>{
     const fetchPost = async()=>{
         try {
         const res = username
-          ? await axios.get(`/posts/profile/${username}`)
-          : await axios.get(`/posts/timeline/${user._id}`);
+          ? await axios.get(`/api/posts/profile/${username}`)
+          : await axios.get(`/api/posts/timeline/${user._id}`);
 
         setPosts(res.data);
       } catch (error) {

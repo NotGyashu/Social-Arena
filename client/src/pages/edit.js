@@ -29,7 +29,7 @@ const Edit =()=>{
    useEffect(() => {
      const fetchUser = async () => {
        try {
-         const res = await axios.get(`/user?userId=${currentUser._id}`);
+         const res = await axios.get(`/api/user?userId=${currentUser._id}`);
          setData(res.data);
          
        } catch (error) {
@@ -134,7 +134,7 @@ const Edit = async(e)=>{
  e.preventDefault();
    try{
    console.log(data)
-  await axios.put(`/user/${currentUser._id}`, data);
+  await axios.put(`/api/user/${currentUser._id}`, data);
  navigate(-1)
   
 }catch(err){

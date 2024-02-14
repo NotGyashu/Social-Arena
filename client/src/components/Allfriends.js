@@ -32,7 +32,7 @@ export default function Friends({user,userFriends}){
       useEffect(() => {
         const fetchUser = async () => {
           try {
-            const res = await axios.get(`/user?userId=${user}`);
+            const res = await axios.get(`/api/user?userId=${user}`);
             setNUser(res.data);
             // console.log(res);
           } catch (error) {

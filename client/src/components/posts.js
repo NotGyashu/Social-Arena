@@ -20,7 +20,7 @@ export default function Posts({ post }) {
     useEffect(()=>{
         const fetchUser = async () => {
             try {
-              const res = await axios.get(`/user?userId=${post.userId}`);
+              const res = await axios.get(`/api/user?userId=${post.userId}`);
               setUser(res.data);
             //  console.log(res.data);
             } catch (error) {
@@ -48,10 +48,12 @@ export default function Posts({ post }) {
    const likeCounter = async () => {
      try {
        // Make the PUT request to update likes
-       await axios.put(`/posts/${post._id}/like`, { userId: currentUser._id });
+       await axios.put(`/api/posts/${post._id}/like`, {
+         userId: currentUser._id,
+       });
 
        // Fetch the updated post after liking
-       const updatedPost = await axios.get(`/posts/${post._id}`);
+       const updatedPost = await axios.get(`/api/posts/${post._id}`);
 
        // Update the like count directly from the response
        setLike(updatedPost.data.likes);

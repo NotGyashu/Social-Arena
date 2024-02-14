@@ -18,11 +18,11 @@ const ForgetPassword = ({ open, handleClose }) => {
   const update = async (e) => {
     e.preventDefault();
     try {
-      const user = await axios.get(`/user/?email=${data.email}`);
+      const user = await axios.get(`/api/user/?email=${data.email}`);
       console.log(user.data._id);
 
       data._id = user.data._id;
-      const res = await axios.put(`/user/${user.data._id}`, data);
+      const res = await axios.put(`/api/user/${user.data._id}`, data);
       if (res.status == 200) {
         console.log("password changed");
         handleClose();

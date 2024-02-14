@@ -13,7 +13,7 @@ export default function Topbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`/user?userId=${user._id}`);
+        const res = await axios.get(`/api/user?userId=${user._id}`);
         setData(res.data);
       } catch (error) {
         // Handle the error here

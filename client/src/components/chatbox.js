@@ -9,7 +9,7 @@ export const ChatBox = ({ onlineUsers, currentUser, setCurrentChat }) => {
     // Change 1: Added try/catch block for error handling
     const getFriends = async () => {
       try {
-        const res = await axios.get(`/user/friends/${currentUser}`);
+        const res = await axios.get(`/api/user/friends/${currentUser}`);
         setFriends(res.data);
       } catch (error) {
         console.error("Error fetching friends:", error);
@@ -26,7 +26,9 @@ export const ChatBox = ({ onlineUsers, currentUser, setCurrentChat }) => {
 
   const handleClick = async (users) => {
     try {
-      const res = await axios.get(`/conversation/${users._id}/${currentUser}`);
+      const res = await axios.get(
+        `/api/conversation/${users._id}/${currentUser}`
+      );
       setCurrentChat(res.data);
   
     } catch (err) {
