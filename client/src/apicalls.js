@@ -3,7 +3,7 @@ import axios from "axios"
 export const logincall = async (userCredential,dispatch)=>{
     dispatch({type:"Login_Start"});
     try{
-const res = await axios.post("/auth/login",userCredential);
+const res = await axios.post("/api/auth/login",userCredential);
 
 dispatch({type:"Login_Sucess" , payload:res.data});
     }catch(error){
