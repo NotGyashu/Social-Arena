@@ -11,6 +11,7 @@ const postRoute = require("./routes/posts");
 const Conversation = require("./routes/conversation");
 const messageauth = require("./routes/message");
 const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 dotenv.config();
 
 //middleware
@@ -23,11 +24,7 @@ app.use("/api/posts", postRoute);
 app.use("/api/conversation", Conversation);
 app.use("/api/message", messageauth);
 app.use(
-  cors({
-    origin: ["https://social-arena.vercel.app/", "http://localhost:3000/"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
+  cors(corsOptions)
 );
 
 app.get("/", async (req, res) => {
