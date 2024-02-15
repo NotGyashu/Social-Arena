@@ -15,7 +15,7 @@ const [user,setUser] = useState([])
 useEffect(()=>{
 const fetchData = async () => {
   try {
-    const response = await axios.get("/auth/all");
+    const response = await axios.get("/api/auth/all");
     setUser(response.data);
   } catch (error) {
     console.error("Error fetching data:", error);
