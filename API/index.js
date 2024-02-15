@@ -24,15 +24,15 @@ app.use("/api/conversation", Conversation);
 app.use("/api/message", messageauth);
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://social-arena.vercel.app/", "http://localhost:3000/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 
-app.get("/", async(req,res)=>{
-  res.status(200).json("server is running")
-})
+app.get("/", async (req, res) => {
+  res.status(200).json("server is running");
+});
 const io = require("socket.io")(8900, {
   cors: {
     origin: "https://social-arena.vercel.app/",

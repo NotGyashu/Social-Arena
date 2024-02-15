@@ -6,7 +6,7 @@ export const logincall = async (userCredential, dispatch) => {
     const temp = process.env.REACT_APP_BASE_URL;
     console.log({ temp });
     const res = await axios.post(
-      `/${process.env.REACT_APP_BASE_URL}/api/auth/login`,
+      `${process.env.REACT_APP_BASE_URL}api/auth/login`,
       userCredential
     );
 
@@ -15,3 +15,5 @@ export const logincall = async (userCredential, dispatch) => {
     dispatch({ type: "Login_Fail", payload: error });
   }
 };
+
+
