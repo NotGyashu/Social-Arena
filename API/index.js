@@ -30,6 +30,9 @@ app.use(
   })
 );
 
+app.get("/", async(req,res)=>{
+  res.status(200).json("server is running")
+})
 const io = require("socket.io")(8900, {
   cors: {
     origin: "https://social-arena.vercel.app/",
