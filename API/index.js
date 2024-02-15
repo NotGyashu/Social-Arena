@@ -24,7 +24,7 @@ app.use("/api/conversation", Conversation);
 app.use("/api/message", messageauth);
 app.use(
   cors({
-    origin: "https://social-arena.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
