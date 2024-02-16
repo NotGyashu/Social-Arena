@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {
 });
 const io = require("socket.io")(8900, {
   cors: {
-    origin: "https://social-arena.vercel.app/",
+    origin: "*",
   },
 });
 

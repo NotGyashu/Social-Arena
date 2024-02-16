@@ -1,3 +1,4 @@
+const cors = require("cors");
 const allowedOrigins = require("./allowedOrigins");
 
 const corsOptions = {
@@ -8,6 +9,7 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  methods: ["POST", "GET", "PATCH", "PUT", "DELETE"],
   credentials: true,
   optionSuccessStatus: 200,
 };
