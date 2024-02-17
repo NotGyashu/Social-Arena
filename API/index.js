@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const db = require("./config/mongoose");
 const morgan = require("morgan");
-const helmet = require("helmet");
+
 const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
@@ -16,7 +16,7 @@ dotenv.config();
 
 //middleware
 app.use(express.json());
-app.use(helmet());
+
 app.use(morgan("common"));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
@@ -26,23 +26,7 @@ app.use("/api/message", messageauth);
 app.use(
   cors(corsOptions)
 );
-app.use(function (req, res, next) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "http://localhost:3000",
-    "https://social-arena.vercel.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
+
 app.get("/", async (req, res) => {
   res.status(200).json("server is running");
 });
