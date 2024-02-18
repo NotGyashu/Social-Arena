@@ -16,7 +16,6 @@ dotenv.config();
 
 //middleware
 app.use(express.json());
-
 app.use(morgan("common"));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
