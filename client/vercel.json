@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://anonymus-thoughts-api.onrender.com/api/$1"
+    }
+  ]
+}
