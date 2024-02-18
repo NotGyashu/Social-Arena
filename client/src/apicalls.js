@@ -6,9 +6,9 @@ export const logincall = async (userCredential, dispatch) => {
     
     const temp = process.env.REACT_APP_BASE_URL;
 
-    console.log({ temp });
+   
     const res = await axios.post(
-      `${temp}api/auth/login`,
+      `/api/auth/login`,
       
       userCredential
     );

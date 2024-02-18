@@ -10,12 +10,12 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const Conversation = require("./routes/conversation");
 const messageauth = require("./routes/message");
-const cors = require("cors");
-const corsOptions = require("./config/corsOptions");
+
+
 dotenv.config();
 
 //middleware
-app.use(cors(corsOptions));
+
 app.use(helmet());
 app.use(express.json());
 app.use(morgan("common"));
@@ -28,11 +28,7 @@ app.use("/api/message", messageauth);
 app.get("/", async (req, res) => {
   res.status(200).json("server is running");
 });
-const io = require("socket.io")(8900, {
-  cors: {
-    origin: "*",
-  },
-});
+const io = require("socket.io")(8900);
 
 let users = [];
 
