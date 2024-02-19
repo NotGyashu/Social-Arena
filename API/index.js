@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const Conversation = require("./routes/conversation");
 const messageauth = require("./routes/message");
-
+const cors = require("cors")
 
 dotenv.config();
 
@@ -28,7 +28,17 @@ app.use("/api/message", messageauth);
 app.get("/", async (req, res) => {
   res.status(200).json("server is running");
 });
-const io = require("socket.io")(8900);
+const io = require("socket.io")(8900, {
+  cors: {
+    origin: [
+      "http://localhost:3000",
+      "https://social-arena.vercel.app",
+      "https://social-arena-server.onrender.com",
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
 let users = [];
 
@@ -58,10 +68,15 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", ({ senderId, receiverId, text }) => {
     const user = getUser(receiverId);
 
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-      text,
-    });
+    if (user && user.socketId) {
+      console.log(user.socketId);
+      io.to(user.socketId).emit("getMessage", {
+        senderId,
+        text,
+      });
+    } else {
+      console.log("User not found or missing socketId:", receiverId);
+    }
   });
 
   // When disconnect

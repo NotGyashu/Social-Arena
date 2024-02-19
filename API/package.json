@@ -4,7 +4,7 @@
   "description": "an api to build an social media app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "Gyashu Rahman",
   "license": "ISC",
