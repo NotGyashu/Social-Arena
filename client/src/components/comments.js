@@ -89,7 +89,6 @@ const scrollref = useRef()
     }
   };
 
-
   const handleLike = async (commentId) => {
     try {
       const res = await axios.put(

@@ -33,12 +33,12 @@ useEffect(() => {
 
   fetchUser();
 }, [currentUser]);
+
 useEffect(()=>{
  
   const uploadFile =()=>{
 if(file){
        const name = new Date().getTime() + file.name;
-
         const storageRef = ref(storage, name);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -87,8 +87,9 @@ const newPost = {
   desc: desc.current.value,
   img: imgLink,
 };
+console.log('here');
 try{
-const res =  await axios.post("/posts",newPost)
+const res =  await axios.post("/api/posts",newPost)
   if(res.status == 200){
  window.location.reload();
   }
@@ -122,7 +123,7 @@ const res =  await axios.post("/posts",newPost)
                 <label
                   htmlFor="file"
                   class="flex space-x-1 cursor-pointer hover:opacity-80"
-                >
+                 >
                   <PermMedia htmlColor="tomato" />
                   <span>Photos or vedio</span>
                   <input

@@ -13,11 +13,11 @@ const measurementId = String(process.env.FIREBASE_MEASUREMENT_ID);
 const firebaseConfig = {
   apiKey: apiKey,
   authDomain: authDomain,
-  projectId: measurementId,
-  storageBucket: storageBucket,
+  projectId: "socialarena-d6016",
+  storageBucket: "socialarena-d6016.appspot.com",
   messagingSenderId: messagingSenderId,
   appId: appId,
-  measurementId: projectId,
+  measurementId: "G-K5WWVX2NS2",
 };
 
 // Initialize Firebase
