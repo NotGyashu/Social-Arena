@@ -11,7 +11,7 @@ export default function Home(){
       <Topbar />
       <div class="grid grid-cols-10 ">
         <Sidebar />
-        <div class=" col-span-8 grid  grid-cols-8 border overflow-x-hidden">
+        <div class=" col-span-10 md:col-span-7 lg:col-span-8 grid  grid-cols-8 border overflow-x-hidden">
           <Feed />
           <Rightbar />
         </div>

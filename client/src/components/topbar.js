@@ -1,4 +1,5 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +8,8 @@ import axios from "axios";
 export default function Topbar() {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState([]);
-  const navigate = useNavigate()
+  const [search,setSearch] = useState(false)
+  const navigate = useNavigate();
   //fetching the user
 
   useEffect(() => {
@@ -24,29 +26,27 @@ export default function Topbar() {
     fetchUser();
   }, []);
 
-  
-
   return (
-    <div class="grid grid-cols-10 py-3 fixed top-0 z-50 px-2 pt-3 text-lg bg-green-500 w-full h-12  ">
-      <div class="text-white  ml-7 col-span-2">
-        <span class=" h-4">S</span>
+    <div class="grid grid-cols-10 py-1 md:py-2 lg:py-3 fixed top-0 z-50  md:text-lg bg-green-500 w-full h-9 md:h-11 lg:h-12 items-center ">
+      <div class="hidden md:flex text-white ml-0 md:ml-3 lg:ml-7 col-span-2">
+        <span class="h-4">S</span>
         <span>ocialArena</span>
       </div>
-
-      <div class=" px-2 border h-full   bg-white rounded-full border-purple-300 col-span-4 w-full flex items-center">
+      <div className="md:hidden text-white ">
+        <Search />
+      </div>
+      <div class=" px-2 border h-full hidden lg:flex  bg-white rounded-full border-purple-300 col-span-4 w-full  items-center">
         <Search />
         <input
           placeholder="search for freinds , vedios, photos ..."
           className="searchInput"
-          class=" w-[93%] focus:outline-none px-1 text-sm"
+          class=" w-[93%] focus:outline-none px-1  text-sm "
         ></input>
       </div>
 
-      <div class="flex text-white justify-around   col-span-3 relative left-5 ">
-        <div className="topbarLinks" class="flex space-x-4">
-          <a href="/" className="hover:font-semibold px-1">
-            Homepage
-          </a>
+      <div class="flex text-white  lg:justify-around justify-end  mx-2 col-span-8 md:col-span-6 lg:col-span-3 relative  ">
+        <div class="hidden md:flex space-x-4 ">
+          
           <a href="kh" className="topbarLink">
             Timeline
           </a>
@@ -54,24 +54,38 @@ export default function Topbar() {
             New
           </a>
         </div>
-        <div class="flex space-x-1 relative left-6 cursor-pointer">
-        <Person />
-          <sup class="bg-red-600 h-3 w-3 rounded-full relative top-0 right-4 flex justify-center items-center ">
-            1
-          </sup>
-          
-        
-            <Chat onClick = {()=>{
-              navigate("/messenger");
-            }} />
-        
-          <sup class="bg-red-600 h-3 w-3 rounded-full top-0 right-4 flex justify-center items-center ">
-            1
-          </sup>
-          <Notifications />
-          <sup class="bg-red-600 h-3 w-3 rounded-full top-0 right-4 flex justify-center items-center ">
-            1
-          </sup>
+        <div class="flex  space-x-3 relative  cursor-pointer">
+          <div className="relative">
+            <HomeIcon
+              onClick={() => {
+                navigate("/");
+              }}
+            />
+          </div>
+          <div className="relative ">
+            <Person />
+            <sup class="bg-red-600  h-3 w-3  rounded-full  absolute top-1 right-0  flex justify-center items-center ">
+              1
+            </sup>
+          </div>
+
+          <div className="relative">
+            <Chat
+              onClick={() => {
+                navigate("/messenger");
+              }}
+            />
+
+            <sup class="bg-red-600 h-3 w-3 rounded-full absolute top-1 right-0  flex justify-center items-center ">
+              1
+            </sup>
+          </div>
+          <div>
+            <Notifications />
+            <sup class="bg-red-600 h-3 w-3  rounded-full absolute top-1 right-0 flex justify-center items-center ">
+              1
+            </sup>
+          </div>
         </div>
       </div>
       <Link to={`/profile/${data.username}`}>
@@ -83,7 +97,7 @@ export default function Topbar() {
           }
           alt="its me"
           className="topbarImg"
-          class="absolute w-10 h-10 right-4 top-1 rounded-full col-span-1 border border-white-500"
+          class="absolute w-7 h-7 md:h-9 md:w-9 lg:h-10 lg:w-10 right-1 top-1 rounded-full col-span-1 border border-white-500"
         ></img>
       </Link>
     </div>
