@@ -13,11 +13,11 @@ const Comments = ({ post }) => {
   const [val, setVal] = useState("");
   const [commenters, setCommenters] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
-  const [Post,setPost] = useState(post)
-const scrollref = useRef()
+  const [Post, setPost] = useState(post);
+  const scrollref = useRef();
 
   const fetchCommenters = async () => {
-    console.log("joj")
+    console.log("joj");
     try {
       const commentersData = await Promise.all(
         Post.comments.map(async (comment) => {
@@ -36,7 +36,6 @@ const scrollref = useRef()
 
   useEffect(() => {
     fetchCommenters();
-    
   }, [Post.comments]);
 
   const handleDelete = async (commentId) => {
@@ -45,10 +44,10 @@ const scrollref = useRef()
         `/api/posts/${Post._id}/comment/${commentId}`
       );
       // Assuming your server returns the updated comments
-     setPost({
-       ...post,
-       comments: res.data,
-     });
+      setPost({
+        ...post,
+        comments: res.data,
+      });
     } catch (err) {
       console.error("Error deleting comment:", err);
     }
@@ -107,14 +106,14 @@ const scrollref = useRef()
 
   return (
     <div
-      className={`w-[100%] ${
-        open ? "top-10 bottom-10 left-1" : " left-[92%] top-1"
+      className={`w-[100%] text-sm ${
+        open ? "top-10 bottom-10 left-1" : " md:left-[92%] left-[85%] top-1"
       }  relative`}
     >
       <div onClick={handleComment} className={` cursor-pointer inline`}>
         {Post.comments.length} {open ? "Comments" : <ChatBubbleOutlineIcon />}
       </div>
-      <div className={`${open ? " p-2 " : "hidden"}`}>
+      <div className={`${open ? " md:px-2 py-2" : "hidden"}`}>
         {/* comment head */}
         <div>
           <form
@@ -127,7 +126,7 @@ const scrollref = useRef()
                 "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
               }
               alt="Profile"
-              className="h-9 w-9 rounded-full inline border border-green-400"
+              className="h-7 w-7 md:h-8 lg:h-9 md:w-8 lg:w-9  rounded-full inline border border-green-400"
             />
             <input
               type="text"
@@ -145,13 +144,13 @@ const scrollref = useRef()
         </div>
         {/* comment body */}
         <div
-          className="py-2 px-6 max-h-48 overflow-y-auto custom-scrollbar"
+          className="py-1 md:py-2  max-h-48 overflow-y-auto custom-scrollbar"
           ref={scrollref}
         >
           {Post.comments.map((c, index) => (
             <div
               key={c._id}
-              className={`m-2 hover:bg-green-100 rounded-md relative p-2 ${
+              className={` hover:bg-green-100 rounded-md relative p-2 ${
                 hoverIndex === index ? "border border-gray-300" : ""
               }`}
               onMouseEnter={() => setHoverIndex(index)}
@@ -163,9 +162,9 @@ const scrollref = useRef()
                   "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/th.jpg?alt=media&token=c605506d-52d5-45e2-8957-86f1735c8dd2"
                 }
                 alt="Profile"
-                className="h-7 w-7 rounded-full inline border border-green-400 m-1 "
+                className="h-5 w-5 md:h-7 md:w-7 rounded-full inline border border-green-400 m-1 "
               />
-              <div className="inline text-xs absolute p-0.5 top-[-1]">
+              <div className="inline text-[10px] md:text-xs absolute p-0.5 top-[-1]">
                 {commenters[index]?.username
                   ? commenters[index]?.username.split(" ")[0]
                   : ""}{" "}

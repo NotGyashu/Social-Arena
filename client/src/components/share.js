@@ -87,7 +87,7 @@ export default function Share() {
   return (
     <div>
       <form class="box-shadow rounded-md" onSubmit={submitHandler}>
-        <div class="flex space-x-5 p-3">
+        <div class="flex space-x-5 p-1 md:p-2 lg:p-3">
           <img
             src={
               data.profilePicture
@@ -99,20 +99,20 @@ export default function Share() {
           ></img>
           <input
             placeholder={`Hey ${data.username}!, whats on your mind!!`}
-            class="w-full focus:outline-none text-sm text-gray-700"
+            class="w-full focus:outline-none text-[13px] text-gray-700 overflow-auto"
             ref={desc}
           ></input>
         </div>
-        <hr class="m-2 md:m-3 lg:m-5 border-l"></hr>
-        <div class=" px-5 py-2 flex justify-between">
-          <ul class="flex space-x-4 text-sm flex-wrap  justify-center">
+        <hr class="mx-1 md:mx-3 lg:mx-5 border-l"></hr>
+        <div class=" px-2 md:px-3 lg:px-5 py-2 flex justify-between items-center">
+          <ul class="flex  space-x-4 text-[10px] md:text-sm flex-wrap  justify-center">
             <li>
               <label
                 htmlFor="file"
-                class="flex space-x-1 cursor-pointer hover:opacity-80"
+                class="flex space-x-1 items-center cursor-pointer hover:opacity-80"
               >
                 <PermMedia htmlColor="tomato" />
-                <span>Photos or vedio</span>
+                <span>img or video</span>
                 <input
                   type="file"
                   accept="png,jpeg,jpg"
@@ -124,21 +124,21 @@ export default function Share() {
                 ></input>
               </label>
             </li>
-            <li class="flex space-x-1">
+            <li class="flex space-x-1 items-center">
               <Label htmlColor="blue" />
               <span>Tag</span>
             </li>
-            <li class="flex space-x-1">
-              <Room htmlColor="green" />
+            <li class="flex space-x-1 items-center">
+              <Room htmlColor="green" className="h-4 w-4" />
               <span>Location</span>
             </li>
-            <li class="flex space-x-1">
+            <li class=" space-x-1 items-center hidden md:flex">
               <EmojiEmotions htmlColor="goldenrod" />
               <span>Feelings</span>
             </li>
           </ul>
           <button
-            class={`text-white justify-center items-center  w-14 md:w-20 h-5 md:h-7 text-sm px-4 rounded-full ${
+            class={`text-white flex justify-center items-center  w-14 md:w-20 h-5 md:h-7 text-sm px-4 rounded-full ${
               per !== null && per < 100
                 ? "bg-green-200 cursor-not-allowed"
                 : "bg-green-500"

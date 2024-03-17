@@ -9,7 +9,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Rightbar({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { dispatch } = useContext(AuthContext);
 
   const username = useParams().username;

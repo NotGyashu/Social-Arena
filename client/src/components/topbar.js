@@ -8,7 +8,7 @@ import axios from "axios";
 export default function Topbar() {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState([]);
-  const [search,setSearch] = useState(false)
+  const [search, setSearch] = useState(false);
   const navigate = useNavigate();
   //fetching the user
 
@@ -32,7 +32,7 @@ export default function Topbar() {
         <span class="h-4">S</span>
         <span>ocialArena</span>
       </div>
-      <div className="md:hidden text-white ">
+      <div className="md:hidden text-white ml-2">
         <Search />
       </div>
       <div class=" px-2 border h-full hidden lg:flex  bg-white rounded-full border-purple-300 col-span-4 w-full  items-center">
@@ -46,7 +46,6 @@ export default function Topbar() {
 
       <div class="flex text-white  lg:justify-around justify-end  mx-2 col-span-8 md:col-span-6 lg:col-span-3 relative  ">
         <div class="hidden md:flex space-x-4 ">
-          
           <a href="kh" className="topbarLink">
             Timeline
           </a>
@@ -97,7 +96,7 @@ export default function Topbar() {
           }
           alt="its me"
           className="topbarImg"
-          class="absolute w-7 h-7 md:h-9 md:w-9 lg:h-10 lg:w-10 right-1 top-1 rounded-full col-span-1 border border-white-500"
+          class="absolute w-7 h-7 md:h-9 md:w-9 lg:h-10 lg:w-10 right-2 top-1 rounded-full col-span-1 border border-white-500"
         ></img>
       </Link>
     </div>

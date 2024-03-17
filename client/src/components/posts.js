@@ -95,14 +95,14 @@ export default function Posts({ post }) {
       {/* postCenter */}
 
       <div>
-        <span class=" my-12 md:my-16">{post.desc}</span>
+        <span class=" my-12 md:my-16 text-sm">{post.desc}</span>
         <img src={post.img} alt="marvel" class=" h-auto w-full mt-2"></img>
       </div>
 
       {/* postBottom */}
 
-      <div class={`relative`}>
-        <div class="flex md:mt-2 mt-1 absolute top-0 left-0">
+      <div class={`relative `}>
+        <div class="flex md:mt-2 mt-1 items-center  absolute top-0 left-0">
           <img
             src={
               "https://firebasestorage.googleapis.com/v0/b/socialarena-d6016.appspot.com/o/like.jpg?alt=media&token=1b28a099-a14e-4f6e-b557-e7cfd89d25be"

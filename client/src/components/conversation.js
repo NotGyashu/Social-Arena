@@ -1,26 +1,23 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 export const Conversation = ({ conversation, currentUser }) => {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const friendId = conversation.members.find((m) => 
-      m !== currentUser._id
-    );
+    const friendId = conversation.members.find((m) => m !== currentUser._id);
 
     const getUser = async () => {
       try {
         const res = await axios.get(`/api/user?userId=${friendId}`);
-      
-        setUser(res.data)
+
+        setUser(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getUser();
-  }, [conversation.members,currentUser]);
+  }, [conversation.members, currentUser]);
   return (
-    <div class="flex m-3 gap-3  items-center  border-b-[1px] rounded cursor-pointer hover:bg-lime-100 p-1">
+    <div class="flex my-3 mx-1 md:mx-2 lg:mx-3 gap-3  items-center  border-b-[1px] rounded cursor-pointer hover:bg-lime-100 p-1">
       {user && (
         <>
           <img
