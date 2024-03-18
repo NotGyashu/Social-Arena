@@ -44,7 +44,7 @@ export default function Friends({ user, userFriends }) {
     console.log(nuser);
     return (
       <div
-        class="flex flex-col space-x-3 h-[5rem] w-[5rem] justify-between items-center my-3  box-border hover:bg-green-100 rounded py-1 cursor-pointer"
+        class="flex flex-col space-x-3 h-[5rem] w-[5rem] justify-between items-center box-border hover:bg-green-100 rounded py-1 cursor-pointer"
         onClick={() => {
           navigate(`/profile/${nuser.username}`);
         }}

@@ -61,7 +61,7 @@ const Follow = () => {
 
   return (
     <div
-      className="bg-green-600 text-lg rounded px-2 w-[30%] cursor-pointer mt-1 text-white flex items-center justify-center gap-1"
+      className="bg-green-600 text-lg rounded px-2 w-[30%] md:w-[50%] cursor-pointer mt-1 text-white flex items-center justify-center gap-1"
       onClick={toggleFollow}
     >
       {following ? (

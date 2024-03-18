@@ -61,9 +61,10 @@ export default function Rightbar({ user }) {
 
   const ProfileRightbar = ({ input, username }) => {
     return (
-      <div class=" mt-16 ml-5 col-span-3">
-        <h1 class="font-bold"> User Information</h1>
+      <div class="md:flex md:justify-between lg:justify-start lg:flex-col  mt-16 mx-5 col-span-8 lg:col-span-3">
         <ul class=" text-gray-600 ">
+          <h1 class="font-bold"> User Information</h1>
+
           <li>
             <span class="mr-2 font-semibold">City:</span>
             <span>{user.city}</span>
@@ -95,15 +96,20 @@ export default function Rightbar({ user }) {
             </span>
           </li>
         </ul>
-        <h1 class="font-semibold mt-3 text-xl text-center"> User Friends</h1>
-        <ul class="flex flex-wrap justify-around">
-          {user.followings && user.followings.length > 0 ? (
-            user.followings.map((u) => (
-              <Friends key={u.id} user={u} userFriends />
-            ))
-          ) : (
-            <p class="text-xl mt-2">No Freinds ...</p>
-          )}
+        <ul class="flex  flex-col  flex-wrap justify-around">
+          <div class="font-semibold  text-xl text-center"> Friends</div>
+
+          <div>
+            <div className="flex">
+              {user.followings && user.followings.length > 0 ? (
+                user.followings.map((u) => (
+                  <Friends key={u.id} user={u} userFriends />
+                ))
+              ) : (
+                <p class="text-xl mt-2">No Freinds ...</p>
+              )}
+            </div>
+          </div>
         </ul>
       </div>
     );
