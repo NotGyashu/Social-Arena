@@ -7,6 +7,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Edit = () => {
   const { user: currentUser } = useContext(AuthContext);
@@ -128,6 +129,13 @@ const Edit = () => {
 
   return (
     <div class="md:p-1 lg:p-3 custom-scrollbar">
+      <div className="fixed text-white top-1 left-1">
+        <ArrowBackIcon
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+      </div>
       <div class=" w-full flex flex-col items-center justify-center ">
         <img
           src={
