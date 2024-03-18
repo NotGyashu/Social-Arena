@@ -44,7 +44,7 @@ export default function Register() {
           Socialise with the people around the world, Using Arena
         </h1>
       </div>
-
+      
       {/* login form */}
 
       <div class="col-span-8 lg:col-span-3 bg-white m-10 my-10 p-5  justify-center items-center">

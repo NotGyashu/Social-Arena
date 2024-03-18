@@ -97,7 +97,11 @@ export default function Login() {
             Forget password?
           </div>
           <hr></hr>
-
+          <p className="flex text-xs col-span-8 justify-center">
+            {" "}
+            "create account or login with <br />
+            email & password = ben@gmail.com"{" "}
+          </p>
           <Link
             to="/register"
             class="w-full h-8 md:h-10 flex justify-center items-center  bg-green-500 text-white p-3  rounded-md"

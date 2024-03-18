@@ -65,7 +65,7 @@ export default function Profile() {
               class="relative  h-[30vw] md:h-[20vw] md:w-[20vw] lg:h-[15vw] lg:w-[15vw]  w-[30vw] border-2 top-[-14vw] md:top-[-10vw]  lg:top-[-10vw] border-white shadow-md rounded-full "
             ></img>
             <h1 class="mt-[-6vw] font-bold text-xl">{user.username}</h1>
-            <h1 className="text-xs md:text-sm border px-7 flex justify-center items-center">{user.desc}</h1>
+            <h1 className="text-xs md:text-sm  px-7 flex justify-center items-center">{user.desc}</h1>
           </div>
           {/* middleprofile */}
           <div class=" col-span-8 grid-cols-8 grid lg:hidden relative top-[-7vh] overflow-x-hidden no-scrollbar">
