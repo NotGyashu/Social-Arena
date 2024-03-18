@@ -87,7 +87,7 @@ export default function Share() {
   return (
     <div>
       <form class="box-shadow rounded-md" onSubmit={submitHandler}>
-        <div class="flex space-x-5 p-1 md:p-2 lg:p-3">
+        <div class="flex space-x-5 p-2 md:p-3 lg:p-4">
           <img
             src={
               data.profilePicture
