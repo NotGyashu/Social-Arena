@@ -32,7 +32,7 @@ export default function Register() {
   };
 
   return (
-    <div class="grid grid-cols-8 h-screen w-screen bg-slate-100  ">
+    <div class="grid grid-cols-8 overflow-hidden h-screen w-screen bg-slate-100  ">
       {/* logo */}
 
       <div class="col-span-8  lg:col-span-4 bg-slate-100 m-0 lg:m-10 flex flex-col justify-center">

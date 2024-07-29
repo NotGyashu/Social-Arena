@@ -14,7 +14,10 @@ import Friends from "./Allfriends";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
+
 export default function Sidebar() {
+  const { user: currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
 
@@ -32,59 +35,66 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <div class="hidden md:flex flex-col md:col-span-3 lg:col-span-2 border sticky top-12 overflow-y-scroll custom-scrollbar  max-h-screen ">
+    <div className="hidden md:flex flex-col md:col-span-3 lg:col-span-2 border sticky top-12 overflow-y-scroll custom-scrollbar max-h-screen">
       <ul>
-        <div class="p-2 text-2xl font-semibold text-green-600 underline mt-2">
+        <div className="p-2 text-2xl font-semibold text-green-600 underline mt-2">
           Suggestions
         </div>
-        {user.map((u) => (
-          <Friends key={user.id} user={u} />
-        ))}
+        {user.map((u) =>
+          u._id !== currentUser._id ? <Friends key={u._id} user={u} /> : null
+        )}
       </ul>
-      <button class="bg-gray-300 mx-5  h-9 w-44 rounded-lg">show more</button>
-      <hr class="my-5"></hr>
-      <ul class="p-5 mb-[2rem]">
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+      <button
+        className="bg-gray-300 mx-5 h-9 w-44 rounded-lg"
+        onClick={() => {
+          // handle show more functionality here
+        }}
+      >
+        Show More
+      </button>
+      <hr className="my-5" />
+      <ul className="p-5 mb-[2rem]">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <RssFeed />
-          <span class="px-4">Feed</span>
+          <span className="px-4">Feed</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <Chat />
-          <span class="px-4">Chat</span>
+          <span className="px-4">Chat</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <Group />
-          <span class="px-4">Groups</span>
+          <span className="px-4">Groups</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <Bookmark />
-          <span class="px-4">Bookmarks</span>
+          <span className="px-4">Bookmarks</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <PlayCircleFilledOutlined />
-          <span class="px-4">Vedios</span>
+          <span className="px-4">Videos</span>
         </li>
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <HelpOutline />
-          <span class="px-4">Questions</span>
+          <span className="px-4">Questions</span>
         </li>
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <WorkOutline />
-          <span class="px-4">Jobs</span>
+          <span className="px-4">Jobs</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <Event />
-          <span class="px-4">Evets</span>
+          <span className="px-4">Events</span>
         </li>
 
-        <li class="py-2 flex items-center hover:bg-green-100 rounded pl-2">
+        <li className="py-2 flex items-center hover:bg-green-100 rounded pl-2">
           <School />
-          <span class="px-4">Courses</span>
+          <span className="px-4">Courses</span>
         </li>
       </ul>
     </div>

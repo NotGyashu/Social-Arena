@@ -46,10 +46,10 @@ export default function Topbar() {
 
       <div class="flex text-white  lg:justify-around justify-end  mx-2 col-span-8 md:col-span-6 lg:col-span-3 relative  ">
         <div class="hidden md:flex space-x-4 ">
-          <a href="kh" className="topbarLink">
+          <a href="" className="topbarLink">
             Timeline
           </a>
-          <a href="kh" className="topbarLink">
+          <a href="" className="topbarLink">
             New
           </a>
         </div>

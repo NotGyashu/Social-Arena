@@ -36,14 +36,14 @@ export default function Login() {
   };
 
   return (
-    <div class="grid grid-cols-8 h-screen w-screen bg-slate-100 ">
+    <div class="grid grid-cols-8  border-black overflow-hidden  h-screen w-screen bg-slate-100 ">
       {/* logo */}
 
-      <div class="col-span-8  lg:col-span-4 bg-slate-100 m-5 lg:m-10 flex flex-col justify-center  ">
+      <div class="col-span-8   lg:col-span-4 bg-slate-100 m-5 lg:m-10 flex flex-col justify-center  ">
         <h1 class=" text-2xl md:text-3xl lg:text-5xl text-green-600 font-serif ml-8 md:ml-15 lg:ml-20 w-full ">
           <span class=" text-4xl md:text-6xl lg:text-7xl">S</span>ocialArena
         </h1>
-        <hr class="w-full h-1 bg-white ml-7 md:ml-15 lg:ml-20 "></hr>
+        <hr class="lg:w-full box-border h-1   bg-white ml-7 md:ml-15 lg:ml-20 "></hr>
         <h1 class="ml-8 md:ml-15 lg:ml-20  font-sans text-black">
           Socialise with the people around the world, Using Arena
         </h1>
@@ -51,15 +51,15 @@ export default function Login() {
 
       {/* login form */}
 
-      <div class="col-span-8 lg:col-span-3 h-[70vh] md:h-[80vh] lg:h-[85vh]  bg-white m-10 my-10 p-5 justify-center items-center ">
+      <div class="col-span-8 lg:col-span-3 box-border  lg:h-[85vh]  bg-white m-10  p-5 justify-center items-center ">
         <form
-          class="flex flex-wrap h-full w-full py-12 md:py-6 lg:py-0"
+          class="flex  gap-4 flex-col  h-full w-full "
           onSubmit={handle}
         >
           <input
             type="email"
             placeholder="Email"
-            class="w-full h-8 md:h-10 p-3 md:mt-10 lg:mt-16 outline-none border border-gray-400 rounded-md"
+            class="w-full h-8 md:h-10 p-3  lg:mt-16 outline-none border border-gray-400 rounded-md"
             ref={email}
             required
           ></input>
@@ -80,6 +80,12 @@ export default function Login() {
             </IconButton>
           </div>
 
+          <p className="flex text-xs col-span-8 justify-center">
+            {" "}
+            "create account or login with <br />
+            email & password = ben@gmail.com"{" "}
+          </p>
+
           <button
             class="w-full h-8 md:h-10 flex justify-center items-center  bg-green-500 text-white p-3  rounded-md"
             disabled={isFetching}
@@ -96,12 +102,6 @@ export default function Login() {
           >
             Forget password?
           </div>
-          <hr></hr>
-          <p className="flex text-xs col-span-8 justify-center">
-            {" "}
-            "create account or login with <br />
-            email & password = ben@gmail.com"{" "}
-          </p>
           <Link
             to="/register"
             class="w-full h-8 md:h-10 flex justify-center items-center  bg-green-500 text-white p-3  rounded-md"

@@ -4,7 +4,6 @@ const { model } = require("mongoose");
 const User = require("../models/User");
 const { route } = require("./user");
 
-
    //all();
    router.get("/all", async (req,res) => {
      try {

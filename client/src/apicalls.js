@@ -1,12 +1,8 @@
 import axios from "axios";
-
 export const logincall = async (userCredential, dispatch) => {
   dispatch({ type: "Login_Start" });
   try {
     
-    const temp = process.env.REACT_APP_BASE_URL;
-
-   
     const res = await axios.post(
       `/api/auth/login`,
       
@@ -18,5 +14,3 @@ export const logincall = async (userCredential, dispatch) => {
     dispatch({ type: "Login_Fail", payload: error });
   }
 };
-
-
